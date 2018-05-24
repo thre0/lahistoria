@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<History>
+   <Entry>
+      <Name>Pan1</Name>
+      <Date>Dzisiaj</Date>
+      <Text>1000</Text>
+   </Entry>
+   <Entry>
+      <Name>Pan2</Name>
+      <Date>Jutro</Date>
+      <Text>2000</Text>
+   </Entry>
+   <Entry>
+      <Name>Pan3</Name>
+      <Date>Wczoraj</Date>
+      <Text>3000</Text>
+   </Entry>
+   <Entry>
+      <Name>Pan4</Name>
+      <Date>po południu</Date>
+      <Text>4000</Text>
+   </Entry>
+</History>

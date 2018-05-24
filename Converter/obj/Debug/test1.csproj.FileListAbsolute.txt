@@ -1,0 +1,8 @@
+C:\BAE\c#\projects\test1\test1\bin\Debug\test1.exe.config
+C:\BAE\c#\projects\test1\test1\bin\Debug\test1.exe
+C:\BAE\c#\projects\test1\test1\bin\Debug\test1.pdb
+C:\BAE\c#\projects\test1\test1\obj\Debug\test1.csprojResolveAssemblyReference.cache
+C:\BAE\c#\projects\test1\test1\obj\Debug\test1.exe
+C:\BAE\c#\projects\test1\test1\obj\Debug\test1.pdb
+C:\BAE\c#\projects\test1\test1\obj\Debug\test1.MainForm.resources
+C:\BAE\c#\projects\test1\test1\obj\Debug\test1.csproj.GenerateResource.Cache
