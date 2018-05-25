@@ -53,6 +53,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Class_set.cs" />
     <Compile Include="LaHistoriaForm.cs" />
     <Compile Include="LaHistoriaForm.Designer.cs">
       <DependentUpon>LaHistoriaForm.cs</DependentUpon>

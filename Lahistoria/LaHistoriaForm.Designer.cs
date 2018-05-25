@@ -27,9 +27,8 @@ namespace Lahistoria
 		private System.Windows.Forms.Label label4;
 		private System.Windows.Forms.CheckBox FScheckBox;
 		private System.Windows.Forms.CheckBox DBcheckBox;
-		private System.Windows.Forms.Panel panel2;
 
-		private System.Windows.Forms.Panel panel3;
+		private System.Windows.Forms.Panel DBpanel;
 		private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
 		private System.Windows.Forms.Button SelectSourceFolder;
 		private System.Windows.Forms.TextBox SourceFolder;
@@ -57,14 +56,17 @@ namespace Lahistoria
 		private System.Windows.Forms.Button button3;
 		private System.Windows.Forms.Label label15;
 		private System.Windows.Forms.Label label14;
-		private System.Windows.Forms.Button button2;
-		private System.Windows.Forms.Button button1;
+		private System.Windows.Forms.Button RegExpSearchButton;
+		private System.Windows.Forms.Button SearchButton;
 		private System.Windows.Forms.TextBox textBox7;
 		private System.Windows.Forms.TextBox textBox6;
 		private System.Windows.Forms.Panel HistoryPanel;
 		private System.Windows.Forms.ProgressBar progressBar1;
 		private System.Windows.Forms.Label label17;
 		private System.Windows.Forms.Button button4;
+		private System.Windows.Forms.Panel FSpanel;
+		private System.Windows.Forms.WebBrowser ResultsBrowser;
+		private System.Windows.Forms.WebBrowser DetailsBrowser;
 
 		
 		/// <summary>
@@ -96,6 +98,7 @@ namespace Lahistoria
 			this.baseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.ListPanel = new System.Windows.Forms.Panel();
+			this.ResultsBrowser = new System.Windows.Forms.WebBrowser();
 			this.label16 = new System.Windows.Forms.Label();
 			this.label1 = new System.Windows.Forms.Label();
 			this.label2 = new System.Windows.Forms.Label();
@@ -103,11 +106,11 @@ namespace Lahistoria
 			this.label4 = new System.Windows.Forms.Label();
 			this.FScheckBox = new System.Windows.Forms.CheckBox();
 			this.DBcheckBox = new System.Windows.Forms.CheckBox();
-			this.panel2 = new System.Windows.Forms.Panel();
+			this.FSpanel = new System.Windows.Forms.Panel();
 			this.label5 = new System.Windows.Forms.Label();
 			this.SelectSourceFolder = new System.Windows.Forms.Button();
 			this.SourceFolder = new System.Windows.Forms.TextBox();
-			this.panel3 = new System.Windows.Forms.Panel();
+			this.DBpanel = new System.Windows.Forms.Panel();
 			this.SIDTextBox = new System.Windows.Forms.TextBox();
 			this.PassTextBox = new System.Windows.Forms.TextBox();
 			this.UserTextBox = new System.Windows.Forms.TextBox();
@@ -132,19 +135,21 @@ namespace Lahistoria
 			this.progressBar1 = new System.Windows.Forms.ProgressBar();
 			this.button3 = new System.Windows.Forms.Button();
 			this.label15 = new System.Windows.Forms.Label();
-			this.button2 = new System.Windows.Forms.Button();
+			this.RegExpSearchButton = new System.Windows.Forms.Button();
 			this.label14 = new System.Windows.Forms.Label();
-			this.button1 = new System.Windows.Forms.Button();
+			this.SearchButton = new System.Windows.Forms.Button();
 			this.textBox7 = new System.Windows.Forms.TextBox();
 			this.textBox6 = new System.Windows.Forms.TextBox();
 			this.HistoryPanel = new System.Windows.Forms.Panel();
+			this.DetailsBrowser = new System.Windows.Forms.WebBrowser();
 			this.label17 = new System.Windows.Forms.Label();
 			this.menuStrip1.SuspendLayout();
 			this.ListPanel.SuspendLayout();
-			this.panel2.SuspendLayout();
-			this.panel3.SuspendLayout();
+			this.FSpanel.SuspendLayout();
+			this.DBpanel.SuspendLayout();
 			this.ConnPanel.SuspendLayout();
 			this.SearchPanel.SuspendLayout();
+			this.HistoryPanel.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// monthCalendar1
@@ -197,12 +202,22 @@ namespace Lahistoria
 			// ListPanel
 			// 
 			this.ListPanel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+			this.ListPanel.Controls.Add(this.ResultsBrowser);
 			this.ListPanel.Controls.Add(this.label16);
 			this.ListPanel.Controls.Add(this.label1);
 			this.ListPanel.Location = new System.Drawing.Point(264, 34);
 			this.ListPanel.Name = "ListPanel";
 			this.ListPanel.Size = new System.Drawing.Size(286, 671);
 			this.ListPanel.TabIndex = 2;
+			// 
+			// ResultsBrowser
+			// 
+			this.ResultsBrowser.Location = new System.Drawing.Point(0, 0);
+			this.ResultsBrowser.MinimumSize = new System.Drawing.Size(20, 20);
+			this.ResultsBrowser.Name = "ResultsBrowser";
+			this.ResultsBrowser.Size = new System.Drawing.Size(279, 669);
+			this.ResultsBrowser.TabIndex = 1;
+			this.ResultsBrowser.DocumentCompleted += new System.Windows.Forms.WebBrowserDocumentCompletedEventHandler(this.ResultsBrowserDocumentCompleted);
 			// 
 			// label16
 			// 
@@ -251,6 +266,7 @@ namespace Lahistoria
 			this.FScheckBox.Size = new System.Drawing.Size(19, 24);
 			this.FScheckBox.TabIndex = 6;
 			this.FScheckBox.UseVisualStyleBackColor = true;
+			this.FScheckBox.CheckedChanged += new System.EventHandler(this.FScheckBoxCheckedChanged);
 			// 
 			// DBcheckBox
 			// 
@@ -259,17 +275,18 @@ namespace Lahistoria
 			this.DBcheckBox.Size = new System.Drawing.Size(19, 24);
 			this.DBcheckBox.TabIndex = 7;
 			this.DBcheckBox.UseVisualStyleBackColor = true;
+			this.DBcheckBox.CheckedChanged += new System.EventHandler(this.DBcheckBoxCheckedChanged);
 			// 
-			// panel2
+			// FSpanel
 			// 
-			this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-			this.panel2.Controls.Add(this.label5);
-			this.panel2.Controls.Add(this.SelectSourceFolder);
-			this.panel2.Controls.Add(this.SourceFolder);
-			this.panel2.Location = new System.Drawing.Point(9, 143);
-			this.panel2.Name = "panel2";
-			this.panel2.Size = new System.Drawing.Size(240, 95);
-			this.panel2.TabIndex = 8;
+			this.FSpanel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+			this.FSpanel.Controls.Add(this.label5);
+			this.FSpanel.Controls.Add(this.SelectSourceFolder);
+			this.FSpanel.Controls.Add(this.SourceFolder);
+			this.FSpanel.Location = new System.Drawing.Point(9, 143);
+			this.FSpanel.Name = "FSpanel";
+			this.FSpanel.Size = new System.Drawing.Size(240, 95);
+			this.FSpanel.TabIndex = 8;
 			// 
 			// label5
 			// 
@@ -296,25 +313,26 @@ namespace Lahistoria
 			this.SourceFolder.Name = "SourceFolder";
 			this.SourceFolder.Size = new System.Drawing.Size(234, 20);
 			this.SourceFolder.TabIndex = 0;
+			this.SourceFolder.TextChanged += new System.EventHandler(this.SourceFolderTextChanged);
 			// 
-			// panel3
+			// DBpanel
 			// 
-			this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-			this.panel3.Controls.Add(this.SIDTextBox);
-			this.panel3.Controls.Add(this.PassTextBox);
-			this.panel3.Controls.Add(this.UserTextBox);
-			this.panel3.Controls.Add(this.PortTextBox);
-			this.panel3.Controls.Add(this.HostTextBox);
-			this.panel3.Controls.Add(this.label11);
-			this.panel3.Controls.Add(this.label10);
-			this.panel3.Controls.Add(this.label9);
-			this.panel3.Controls.Add(this.label8);
-			this.panel3.Controls.Add(this.label7);
-			this.panel3.Controls.Add(this.label6);
-			this.panel3.Location = new System.Drawing.Point(9, 244);
-			this.panel3.Name = "panel3";
-			this.panel3.Size = new System.Drawing.Size(240, 140);
-			this.panel3.TabIndex = 9;
+			this.DBpanel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+			this.DBpanel.Controls.Add(this.SIDTextBox);
+			this.DBpanel.Controls.Add(this.PassTextBox);
+			this.DBpanel.Controls.Add(this.UserTextBox);
+			this.DBpanel.Controls.Add(this.PortTextBox);
+			this.DBpanel.Controls.Add(this.HostTextBox);
+			this.DBpanel.Controls.Add(this.label11);
+			this.DBpanel.Controls.Add(this.label10);
+			this.DBpanel.Controls.Add(this.label9);
+			this.DBpanel.Controls.Add(this.label8);
+			this.DBpanel.Controls.Add(this.label7);
+			this.DBpanel.Controls.Add(this.label6);
+			this.DBpanel.Location = new System.Drawing.Point(9, 244);
+			this.DBpanel.Name = "DBpanel";
+			this.DBpanel.Size = new System.Drawing.Size(240, 140);
+			this.DBpanel.TabIndex = 9;
 			// 
 			// SIDTextBox
 			// 
@@ -322,6 +340,7 @@ namespace Lahistoria
 			this.SIDTextBox.Name = "SIDTextBox";
 			this.SIDTextBox.Size = new System.Drawing.Size(156, 20);
 			this.SIDTextBox.TabIndex = 10;
+			this.SIDTextBox.TextChanged += new System.EventHandler(this.SIDTextBoxTextChanged);
 			// 
 			// PassTextBox
 			// 
@@ -330,6 +349,7 @@ namespace Lahistoria
 			this.PassTextBox.PasswordChar = '*';
 			this.PassTextBox.Size = new System.Drawing.Size(156, 20);
 			this.PassTextBox.TabIndex = 9;
+			this.PassTextBox.TextChanged += new System.EventHandler(this.PassTextBoxTextChanged);
 			// 
 			// UserTextBox
 			// 
@@ -337,6 +357,7 @@ namespace Lahistoria
 			this.UserTextBox.Name = "UserTextBox";
 			this.UserTextBox.Size = new System.Drawing.Size(156, 20);
 			this.UserTextBox.TabIndex = 8;
+			this.UserTextBox.TextChanged += new System.EventHandler(this.UserTextBoxTextChanged);
 			// 
 			// PortTextBox
 			// 
@@ -344,6 +365,7 @@ namespace Lahistoria
 			this.PortTextBox.Name = "PortTextBox";
 			this.PortTextBox.Size = new System.Drawing.Size(156, 20);
 			this.PortTextBox.TabIndex = 7;
+			this.PortTextBox.TextChanged += new System.EventHandler(this.PortTextBoxTextChanged);
 			// 
 			// HostTextBox
 			// 
@@ -351,6 +373,7 @@ namespace Lahistoria
 			this.HostTextBox.Name = "HostTextBox";
 			this.HostTextBox.Size = new System.Drawing.Size(156, 20);
 			this.HostTextBox.TabIndex = 6;
+			this.HostTextBox.TextChanged += new System.EventHandler(this.HostTextBoxTextChanged);
 			// 
 			// label11
 			// 
@@ -413,6 +436,7 @@ namespace Lahistoria
 			// 
 			this.defSrcSettingsBox.Checked = true;
 			this.defSrcSettingsBox.CheckState = System.Windows.Forms.CheckState.Checked;
+			this.defSrcSettingsBox.Enabled = false;
 			this.defSrcSettingsBox.Location = new System.Drawing.Point(115, 4);
 			this.defSrcSettingsBox.Name = "defSrcSettingsBox";
 			this.defSrcSettingsBox.Size = new System.Drawing.Size(19, 24);
@@ -470,9 +494,9 @@ namespace Lahistoria
 			this.ConnPanel.Controls.Add(this.ConnectButton);
 			this.ConnPanel.Controls.Add(this.DBcheckBox);
 			this.ConnPanel.Controls.Add(this.defSrcSettingsBox);
-			this.ConnPanel.Controls.Add(this.panel2);
+			this.ConnPanel.Controls.Add(this.FSpanel);
 			this.ConnPanel.Controls.Add(this.label12);
-			this.ConnPanel.Controls.Add(this.panel3);
+			this.ConnPanel.Controls.Add(this.DBpanel);
 			this.ConnPanel.Location = new System.Drawing.Point(3, 316);
 			this.ConnPanel.Name = "ConnPanel";
 			this.ConnPanel.Size = new System.Drawing.Size(249, 389);
@@ -493,9 +517,9 @@ namespace Lahistoria
 			this.SearchPanel.Controls.Add(this.progressBar1);
 			this.SearchPanel.Controls.Add(this.button3);
 			this.SearchPanel.Controls.Add(this.label15);
-			this.SearchPanel.Controls.Add(this.button2);
+			this.SearchPanel.Controls.Add(this.RegExpSearchButton);
 			this.SearchPanel.Controls.Add(this.label14);
-			this.SearchPanel.Controls.Add(this.button1);
+			this.SearchPanel.Controls.Add(this.SearchButton);
 			this.SearchPanel.Controls.Add(this.textBox7);
 			this.SearchPanel.Controls.Add(this.textBox6);
 			this.SearchPanel.Location = new System.Drawing.Point(3, 208);
@@ -527,14 +551,15 @@ namespace Lahistoria
 			this.label15.TabIndex = 5;
 			this.label15.Text = "Milions!";
 			// 
-			// button2
+			// RegExpSearchButton
 			// 
-			this.button2.Location = new System.Drawing.Point(147, 31);
-			this.button2.Name = "button2";
-			this.button2.Size = new System.Drawing.Size(97, 23);
-			this.button2.TabIndex = 3;
-			this.button2.Text = "RegExp Search";
-			this.button2.UseVisualStyleBackColor = true;
+			this.RegExpSearchButton.Location = new System.Drawing.Point(147, 31);
+			this.RegExpSearchButton.Name = "RegExpSearchButton";
+			this.RegExpSearchButton.Size = new System.Drawing.Size(97, 23);
+			this.RegExpSearchButton.TabIndex = 3;
+			this.RegExpSearchButton.Text = "RegExp Search";
+			this.RegExpSearchButton.UseVisualStyleBackColor = true;
+			this.RegExpSearchButton.Click += new System.EventHandler(this.RegExpSearchButtonClick);
 			// 
 			// label14
 			// 
@@ -544,14 +569,15 @@ namespace Lahistoria
 			this.label14.TabIndex = 4;
 			this.label14.Text = "Results: ";
 			// 
-			// button1
+			// SearchButton
 			// 
-			this.button1.Location = new System.Drawing.Point(147, 4);
-			this.button1.Name = "button1";
-			this.button1.Size = new System.Drawing.Size(97, 23);
-			this.button1.TabIndex = 2;
-			this.button1.Text = "Search";
-			this.button1.UseVisualStyleBackColor = true;
+			this.SearchButton.Location = new System.Drawing.Point(147, 4);
+			this.SearchButton.Name = "SearchButton";
+			this.SearchButton.Size = new System.Drawing.Size(97, 23);
+			this.SearchButton.TabIndex = 2;
+			this.SearchButton.Text = "Search";
+			this.SearchButton.UseVisualStyleBackColor = true;
+			this.SearchButton.Click += new System.EventHandler(this.SearchButtonClick);
 			// 
 			// textBox7
 			// 
@@ -570,10 +596,20 @@ namespace Lahistoria
 			// HistoryPanel
 			// 
 			this.HistoryPanel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+			this.HistoryPanel.Controls.Add(this.DetailsBrowser);
 			this.HistoryPanel.Location = new System.Drawing.Point(567, 34);
 			this.HistoryPanel.Name = "HistoryPanel";
 			this.HistoryPanel.Size = new System.Drawing.Size(701, 671);
 			this.HistoryPanel.TabIndex = 18;
+			// 
+			// DetailsBrowser
+			// 
+			this.DetailsBrowser.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.DetailsBrowser.Location = new System.Drawing.Point(0, 0);
+			this.DetailsBrowser.MinimumSize = new System.Drawing.Size(20, 20);
+			this.DetailsBrowser.Name = "DetailsBrowser";
+			this.DetailsBrowser.Size = new System.Drawing.Size(697, 667);
+			this.DetailsBrowser.TabIndex = 0;
 			// 
 			// label17
 			// 
@@ -604,13 +640,14 @@ namespace Lahistoria
 			this.menuStrip1.ResumeLayout(false);
 			this.menuStrip1.PerformLayout();
 			this.ListPanel.ResumeLayout(false);
-			this.panel2.ResumeLayout(false);
-			this.panel2.PerformLayout();
-			this.panel3.ResumeLayout(false);
-			this.panel3.PerformLayout();
+			this.FSpanel.ResumeLayout(false);
+			this.FSpanel.PerformLayout();
+			this.DBpanel.ResumeLayout(false);
+			this.DBpanel.PerformLayout();
 			this.ConnPanel.ResumeLayout(false);
 			this.SearchPanel.ResumeLayout(false);
 			this.SearchPanel.PerformLayout();
+			this.HistoryPanel.ResumeLayout(false);
 			this.ResumeLayout(false);
 			this.PerformLayout();
 

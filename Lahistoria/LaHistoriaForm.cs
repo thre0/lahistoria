@@ -40,6 +40,7 @@ namespace Lahistoria
 	        string def_con_user;
 	        string def_con_password;
 	        string def_con_sid;
+	        bool def_autoconnect = false;
 			//
 			// The InitializeComponent() call is required for Windows Forms designer support.
 			//
@@ -69,6 +70,8 @@ namespace Lahistoria
 					break;
 					case "con_sid": {def_con_sid=Line[1];if(def_set)con_sid = def_con_sid;}
 					break;	
+					case "autoconnect": {if(Line[1]=="true")def_autoconnect=true; else def_autoconnect=false;}
+					break;
 				}		
 			    Row++;
 			}
@@ -78,6 +81,17 @@ namespace Lahistoria
 			PortTextBox.Text=con_port;
 			HostTextBox.Text=con_host;
 			
+			setAllParams();
+			if(def_autoconnect) ConnectButtonClick(null,null);
+		}
+		private void setAllParams()
+		{
+			if(srcDB) DBcheckBox.Checked=true;else DBcheckBox.Checked=false;
+			if(srcFS) FScheckBox.Checked=true;else FScheckBox.Checked=false;
+			if(DBcheckBox.Checked) DBpanel.Enabled=true;else DBpanel.Enabled=false;
+			if(FScheckBox.Checked) FSpanel.Enabled=true;else FSpanel.Enabled=false;
+			
+			if(def_set)defSrcSettingsBox.Checked=true;else defSrcSettingsBox.Checked=false;
 		}
 		void ConvertToolStripMenuItemClick(object sender, EventArgs e)
 		{
@@ -104,6 +118,8 @@ namespace Lahistoria
 			ConnectButton.Enabled=false;
 			DisConnectButton.Enabled=true;
 			
+			
+			
 			try {
 				ora_con = new OracleConnection();
 				ora_con.ConnectionString = "Data Source=(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)" +
@@ -112,6 +128,11 @@ namespace Lahistoria
 													"user id="+con_user+";Password="+con_password;
 			    ora_con.Open();
 			    ConnectedBox.Checked=true;
+			    DBcheckBox.Enabled=false;
+			    FScheckBox.Enabled=false;
+				FSpanel.Enabled=false;
+				DBpanel.Enabled=false;
+			    	
 			} catch (Exception ex) {
 				ConnectedBox.Checked=false;
 				MessageBox.Show(ex.Message);
@@ -127,6 +148,11 @@ namespace Lahistoria
 		    ora_con.Close();
 		    ora_con.Dispose();
 		    ConnectedBox.Checked=false;
+			DBcheckBox.Enabled=true;
+			FScheckBox.Enabled=true;
+			FSpanel.Enabled=true;
+			DBpanel.Enabled=true;
+			
 		    MessageBox.Show("Disconnected");
 		}
 		void Button4Click(object sender, EventArgs e)
@@ -162,6 +188,55 @@ namespace Lahistoria
 		    //con.Dispose();
 		    //MessageBox.Show("Disconnected");		
 			
+		}
+		void FScheckBoxCheckedChanged(object sender, EventArgs e)
+		{
+			defSrcSettingsBox.Checked= false;
+			if(FScheckBox.Checked) FSpanel.Enabled=true;else FSpanel.Enabled=false;
+		}
+		void DBcheckBoxCheckedChanged(object sender, EventArgs e)
+		{
+			defSrcSettingsBox.Checked= false;
+			if(DBcheckBox.Checked) DBpanel.Enabled=true;else DBpanel.Enabled=false;
+		}
+		void HostTextBoxTextChanged(object sender, EventArgs e)
+		{
+			defSrcSettingsBox.Checked= false;
+		}
+		void PortTextBoxTextChanged(object sender, EventArgs e)
+		{
+			defSrcSettingsBox.Checked= false;
+		}
+		void UserTextBoxTextChanged(object sender, EventArgs e)
+		{
+			defSrcSettingsBox.Checked= false;
+		}
+		void PassTextBoxTextChanged(object sender, EventArgs e)
+		{
+			defSrcSettingsBox.Checked= false;
+		}
+		void SIDTextBoxTextChanged(object sender, EventArgs e)
+		{
+			defSrcSettingsBox.Checked= false;
+		}
+		void SourceFolderTextChanged(object sender, EventArgs e)
+		{
+			defSrcSettingsBox.Checked= false;
+		}
+	
+
+		void SearchButtonClick(object sender, EventArgs e)
+		{
+			
+			DetailsBrowser.DocumentText = "<html>hello right window</html>";
+		}
+		void RegExpSearchButtonClick(object sender, EventArgs e)
+		{
+			SearchResults res1 = new SearchResults(ResultsBrowser);
+		}
+		void ResultsBrowserDocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
+		{
+			//
 		}
 	}
 }
