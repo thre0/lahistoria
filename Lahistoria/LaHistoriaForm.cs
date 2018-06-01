@@ -29,6 +29,7 @@ namespace Lahistoria
         string con_user;
         string con_password;
         string con_sid;
+        string fs_dir;
         //SqlCommand command ;
         
 		public MainForm()
@@ -40,6 +41,7 @@ namespace Lahistoria
 	        string def_con_user;
 	        string def_con_password;
 	        string def_con_sid;
+	        string def_fs_dir;
 	        bool def_autoconnect = false;
 			//
 			// The InitializeComponent() call is required for Windows Forms designer support.
@@ -69,7 +71,9 @@ namespace Lahistoria
 					case "con_password": {def_con_password=Line[1];if(def_set)con_password = def_con_password;}
 					break;
 					case "con_sid": {def_con_sid=Line[1];if(def_set)con_sid = def_con_sid;}
-					break;	
+					break;
+					case "fs_dir": {def_fs_dir=Line[1];if(def_set)fs_dir = def_fs_dir;}
+					break;
 					case "autoconnect": {if(Line[1]=="true")def_autoconnect=true; else def_autoconnect=false;}
 					break;
 				}		
@@ -80,6 +84,8 @@ namespace Lahistoria
 			UserTextBox.Text=con_user;
 			PortTextBox.Text=con_port;
 			HostTextBox.Text=con_host;
+			
+			SourceFolder.Text=fs_dir;
 			
 			setAllParams();
 			if(def_autoconnect) ConnectButtonClick(null,null);
@@ -115,27 +121,31 @@ namespace Lahistoria
 		}
 		void ConnectButtonClick(object sender, EventArgs e)
 		{
-			ConnectButton.Enabled=false;
-			DisConnectButton.Enabled=true;
+
 			
 			
-			
-			try {
-				ora_con = new OracleConnection();
-				ora_con.ConnectionString = "Data Source=(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)" +
-													"(HOST="+con_host+")(PORT="+con_port+")))" +
-													"(CONNECT_DATA=(SERVER=DEDICATED)(SERVICE_NAME="+con_sid+")));" +
-													"user id="+con_user+";Password="+con_password;
-			    ora_con.Open();
-			    ConnectedBox.Checked=true;
-			    DBcheckBox.Enabled=false;
-			    FScheckBox.Enabled=false;
-				FSpanel.Enabled=false;
-				DBpanel.Enabled=false;
-			    	
-			} catch (Exception ex) {
-				ConnectedBox.Checked=false;
-				MessageBox.Show(ex.Message);
+			if(DBcheckBox.Checked || FScheckBox.Checked)
+			{
+				try {
+					ora_con = new OracleConnection();
+					ora_con.ConnectionString = "Data Source=(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)" +
+														"(HOST="+con_host+")(PORT="+con_port+")))" +
+														"(CONNECT_DATA=(SERVER=DEDICATED)(SERVICE_NAME="+con_sid+")));" +
+														"user id="+con_user+";Password="+con_password;
+				    ora_con.Open();
+				    ConnectedBox.Checked=true;
+				    DBcheckBox.Enabled=false;
+				    FScheckBox.Enabled=false;
+					FSpanel.Enabled=false;
+					DBpanel.Enabled=false;
+					ConnectButton.Enabled=false;
+					DisConnectButton.Enabled=true;
+				    	
+				} catch (Exception ex) {
+					ConnectedBox.Checked=false;
+					MessageBox.Show(ex.Message);
+				}
+				
 			}
 
 			
@@ -234,9 +244,38 @@ namespace Lahistoria
 		{
 			SearchResults res1 = new SearchResults(ResultsBrowser);
 		}
-		void ResultsBrowserDocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
+		void Panel1Paint(object sender, PaintEventArgs e)
 		{
-			//
+	
 		}
+
+		/*void ResultsBrowserDocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
+		{
+			this.ResultsBrowser.Document.Body.MouseDown += new HtmlElementEventHandler(Body_MouseDown);
+		}
+		void Body_MouseDown(Object sender, HtmlElementEventArgs e)
+		{
+		    switch(e.MouseButtonsPressed)
+		    {
+		    case MouseButtons.Left:
+		    		{	
+		    			Point ScreenCoord = new Point(e.MousePosition.X, e.MousePosition.Y);
+						Point BrowserCoord = DetailsBrowser.PointToClient(ScreenCoord);	
+						//HtmlElement elem = DetailsBrowser.Document.GetElementFromPoint(BrowserCoord);	
+						
+		    			//Point p = DetailsBrowser.PointToScreen(e.ClientMousePosition);
+		    			DetailsBrowser.DocumentText = BrowserCoord.Y.ToString();
+		    			}
+		    		//e.OffsetMousePosition.ToString()
+		    		//{MessageBox.Show(e.MousePosition.ToString());
+		        
+		    break;
+		    case MouseButtons.Right:
+		        {MessageBox.Show("Pupa");
+		        }
+		    break;
+		    }
+		}*/
+		
 	}
 }

@@ -1,9 +1,10 @@
 default;true
-srcDB;true
+srcDB;false
 srcFS;false
 con_host;192.168.227.133
 con_port;1521
 con_sid;xe
 con_user;test
 con_password;password
+fs_dir;c:\BAE\c#\projects\Historia\Lahistoria\bin\Debug
 autoconnect;true

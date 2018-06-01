@@ -67,6 +67,7 @@ namespace Lahistoria
 		private System.Windows.Forms.Panel FSpanel;
 		private System.Windows.Forms.WebBrowser ResultsBrowser;
 		private System.Windows.Forms.WebBrowser DetailsBrowser;
+		private System.Windows.Forms.NotifyIcon notifyIcon1;
 
 		
 		/// <summary>
@@ -91,6 +92,7 @@ namespace Lahistoria
 		/// 
 		private void InitializeComponent()
 		{
+			this.components = new System.ComponentModel.Container();
 			this.monthCalendar1 = new System.Windows.Forms.MonthCalendar();
 			this.menuStrip1 = new System.Windows.Forms.MenuStrip();
 			this.menuToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -143,6 +145,7 @@ namespace Lahistoria
 			this.HistoryPanel = new System.Windows.Forms.Panel();
 			this.DetailsBrowser = new System.Windows.Forms.WebBrowser();
 			this.label17 = new System.Windows.Forms.Label();
+			this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
 			this.menuStrip1.SuspendLayout();
 			this.ListPanel.SuspendLayout();
 			this.FSpanel.SuspendLayout();
@@ -212,12 +215,11 @@ namespace Lahistoria
 			// 
 			// ResultsBrowser
 			// 
-			this.ResultsBrowser.Location = new System.Drawing.Point(0, 0);
+			this.ResultsBrowser.Location = new System.Drawing.Point(30, 423);
 			this.ResultsBrowser.MinimumSize = new System.Drawing.Size(20, 20);
 			this.ResultsBrowser.Name = "ResultsBrowser";
-			this.ResultsBrowser.Size = new System.Drawing.Size(279, 669);
+			this.ResultsBrowser.Size = new System.Drawing.Size(249, 246);
 			this.ResultsBrowser.TabIndex = 1;
-			this.ResultsBrowser.DocumentCompleted += new System.Windows.Forms.WebBrowserDocumentCompletedEventHandler(this.ResultsBrowserDocumentCompleted);
 			// 
 			// label16
 			// 
@@ -618,6 +620,11 @@ namespace Lahistoria
 			this.label17.Name = "label17";
 			this.label17.Size = new System.Drawing.Size(249, 2);
 			this.label17.TabIndex = 1;
+			// 
+			// notifyIcon1
+			// 
+			this.notifyIcon1.Text = "notifyIcon1";
+			this.notifyIcon1.Visible = true;
 			// 
 			// MainForm
 			// 

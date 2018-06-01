@@ -41,7 +41,17 @@ namespace Lahistoria
 				ResultsList.Add(new HistResult("1a","2018/05/25","Row grid lines and column grid lines start at 1 and end at a value that is 1 greater than the number of rows or columns the grid has"));
 				ResultsList.Add(new HistResult("2a","2012/04/25","The value for grid-row-start should be the row at which you want the grid item to begin."));
 				ResultsList.Add(new HistResult("1t","2013/05/15","It is possible for the value of grid-row-start to be greater than that of "));
-				divheight = 210;
+				ResultsList.Add(new HistResult("1a","2018/05/25","Row grid lines and column grid lines start at 1 and end at a value that is 1 greater than the number of rows or columns the grid has"));
+				ResultsList.Add(new HistResult("2a","2012/04/25","The value for grid-row-start should be the row at which you want the grid item to begin."));
+				ResultsList.Add(new HistResult("1t","2013/05/15","It is possible for the value of grid-row-start to be greater than that of "));
+				ResultsList.Add(new HistResult("1a","2018/05/25","Row grid lines and column grid lines start at 1 and end at a value that is 1 greater than the number of rows or columns the grid has"));
+				ResultsList.Add(new HistResult("2a","2012/04/25","The value for grid-row-start should be the row at which you want the grid item to begin."));
+				ResultsList.Add(new HistResult("1t","2013/05/15","It is possible for the value of grid-row-start to be greater than that of "));
+				ResultsList.Add(new HistResult("1a","2018/05/25","Row grid lines and column grid lines start at 1 and end at a value that is 1 greater than the number of rows or columns the grid has"));
+				ResultsList.Add(new HistResult("2a","2012/04/25","The value for grid-row-start should be the row at which you want the grid item to begin."));
+				ResultsList.Add(new HistResult("1t","2013/05/15","It is possible for the value of grid-row-start to be greater than that of "));
+			
+				divheight = 840;
 				divresults ="<div class=\"grid\">";
 				divstyle = "<style>";
 				divstyle += ".grid {border: 2px dodgerblue solid;  height: "+divheight+"px;  width: 240px;  display: grid;}";
