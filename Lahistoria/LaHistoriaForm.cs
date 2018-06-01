@@ -239,6 +239,25 @@ namespace Lahistoria
 		{
 			
 			DetailsBrowser.DocumentText = "<html>hello right window</html>";
+			/*
+			TextBox newtbox = new TextBox();
+
+			//newtbox.AutoSize = true;
+			newtbox.BorderStyle = BorderStyle.None;
+			newtbox.ReadOnly = true;
+			newtbox.Multiline = true;
+			newtbox.WordWrap = true;
+			newtbox.Size = new System.Drawing.Size(142, 26);
+			newtbox.BackColor = System.Drawing.SystemColors.Info;
+			Point newpoint = new Point(10,locy);
+			newtbox.Location = newpoint;
+			newtbox.Text = "bardzo dlugi tekst textextextexte" + i.ToString();
+    	    newtbox.Name = "tesbox" + i.ToString();
+    	    newtbox.Parent = panel1;
+    	    i++;
+    	    locy+=26;
+			 
+			 */
 		}
 		void RegExpSearchButtonClick(object sender, EventArgs e)
 		{
