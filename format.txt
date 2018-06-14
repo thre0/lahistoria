@@ -1,0 +1,21 @@
+
+id
+msg_medium
+session
+session_start_time_stamp
+session_end_time_stamp
+chat_name
+timestamp
+speaker
+speaker_alias
+receiver
+receiver_alias
+message
+
+1|SKYPE|20180406105523000|20180406105818000|Pan Zdzislaw|20180406105523000|Pan Zdzislaw|Zdzichu|thr|Wojtek|Hi there!
+
+
+
+
+
+

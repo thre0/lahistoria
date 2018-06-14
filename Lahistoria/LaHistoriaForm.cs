@@ -10,7 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
-using System.Data.SqlClient;
+using System.Text.RegularExpressions;
 using System.IO;
 using System.Data;
 using Oracle.ManagedDataAccess.Client;
@@ -19,8 +19,11 @@ namespace Lahistoria
 {
 
 	public partial class MainForm : Form
-	{
+	{	
+		//connection parameter
 		OracleConnection ora_con;
+		
+		//parameters
 		bool def_set;
 		bool srcDB;
 		bool srcFS;
@@ -30,10 +33,19 @@ namespace Lahistoria
         string con_password;
         string con_sid;
         string fs_dir;
-        //SqlCommand command ;
+        
+        //search results list parameters
+        int ResultNo=1; //result temp id 
+        int ResultLocY = 1; //vertical position of result
+        
+        //results table
+        List<HistResult> ResultsList;
+        
+        //conversation table
         
 		public MainForm()
 		{
+			//default parameters from file
 			bool def_srcDB;
 			bool def_srcFS;
 	        string def_con_host;
@@ -49,6 +61,7 @@ namespace Lahistoria
 			InitializeComponent();
 			string filePath = @"./settings.txt";
 			StreamReader sr = new StreamReader(filePath);
+			ResultsList = new List<HistResult>();
 			int Row = 0;
 			while (!sr.EndOfStream)
 			{
@@ -107,7 +120,7 @@ namespace Lahistoria
 
 		void monthCalendar1DateSelected(object sender, DateRangeEventArgs e)
 		{
-			label16.Text = e.End.ToShortDateString();
+			//label16.Text = e.End.ToShortDateString();
 		}
 		
 		void SelectFolderClick(object sender, EventArgs e)
@@ -239,33 +252,225 @@ namespace Lahistoria
 		{
 			
 			DetailsBrowser.DocumentText = "<html>hello right window</html>";
-			/*
-			TextBox newtbox = new TextBox();
+			
+			string filePath = @"./conv.txt";
+			int startIndex;
+			StreamReader sr = new StreamReader(filePath);
+			ResultsList.Clear();
+			while (!sr.EndOfStream)
+			{
+				string[] Line = sr.ReadLine().Split('|');
+				startIndex = Line[10].IndexOf(SearchBox.Text,StringComparison.OrdinalIgnoreCase);
+				if(SearchBox.Text != "" && startIndex>=0)
+				{
+					ResultsList.Add(new HistResult(Line[0], Line[2], Line[10],SearchBox.Text));
+				}
 
-			//newtbox.AutoSize = true;
-			newtbox.BorderStyle = BorderStyle.None;
-			newtbox.ReadOnly = true;
-			newtbox.Multiline = true;
-			newtbox.WordWrap = true;
-			newtbox.Size = new System.Drawing.Size(142, 26);
-			newtbox.BackColor = System.Drawing.SystemColors.Info;
-			Point newpoint = new Point(10,locy);
-			newtbox.Location = newpoint;
-			newtbox.Text = "bardzo dlugi tekst textextextexte" + i.ToString();
-    	    newtbox.Name = "tesbox" + i.ToString();
-    	    newtbox.Parent = panel1;
-    	    i++;
-    	    locy+=26;
-			 
-			 */
+			}
+			PrintResults3();	 
 		}
 		void RegExpSearchButtonClick(object sender, EventArgs e)
 		{
-			SearchResults res1 = new SearchResults(ResultsBrowser);
+			//SearchResults res1 = new SearchResults(ResultsBrowser);
+			
+			string filePath = @"./conv.txt";
+			Regex regex;
+			
+			if(RegExpSearchBox.Text=="") regex = new Regex(@".*");
+			else regex = new Regex(RegExpSearchBox.Text);
+			       	
+			StreamReader sr = new StreamReader(filePath);
+			ResultsList.Clear();
+			while (!sr.EndOfStream)
+			{
+				string[] Line = sr.ReadLine().Split('|');
+				Match m = regex.Match(Line[10]);
+				
+		       	while (m.Success) 
+		       	{
+		       		ResultsList.Add(new HistResult(Line[0], Line[2], Line[10], m.Value));
+		          	m = m.NextMatch();
+		      	}
+			}
+			PrintResults3();
+		}
+		void newtbox_Click (object sender, EventArgs e)
+		{
+		    //TextBox tbox = sender as TextBox;
+		    Panel pnl = sender as Panel;
+		    MessageBox.Show(pnl.Text);
+		}
+		void newtboxA_Click (object sender, EventArgs e)
+		{				
+		    Label tb = sender as Label;
+		    string res_id = tb.Name.Substring(9,tb.Name.Length-9);
+		    MessageBox.Show(res_id);
+		}
+		void newtboxB_Click (object sender, EventArgs e)
+		{				
+		    RichTextBox tb = sender as RichTextBox;
+		    string res_id = tb.Name.Substring(8,tb.Name.Length-8);
+		    MessageBox.Show(res_id);
+		}
+
+		void PrintResults()
+		{
+			ListPanel.Controls.Clear();
+			ResultNo=1;
+        	ResultLocY = 1;
+			foreach(HistResult Hresult in ResultsList)
+			{
+				TextBox newtbox = new TextBox();
+				
+				newtbox.BorderStyle = BorderStyle.None;
+				newtbox.ReadOnly = true;
+				newtbox.Multiline = true;
+				newtbox.WordWrap = true;
+				newtbox.Size = new System.Drawing.Size(270, 26);
+				newtbox.BackColor = System.Drawing.SystemColors.Info;
+				Point newpoint = new Point(7,ResultLocY);
+				newtbox.Location = newpoint;
+				newtbox.Text = Hresult.resMessage; //+ ResultNo.ToString();
+	    	    newtbox.Name = "textbox" + ResultNo.ToString();
+	    	    newtbox.Parent = ListPanel;
+	    	    
+	    	    //newtbox.Click += new EventHandler(newtbox_Click);
+			
+	    	    ResultNo++;
+	    	    ResultLocY+=26;	
+			}
+		}
+		void PrintResults2()
+		{
+			ListPanel.Controls.Clear();
+			//ResultNo=1;
+        	ResultLocY = 1;
+			foreach(HistResult Hresult in ResultsList)
+			{
+				Panel newPanel = new Panel();
+				newPanel.BorderStyle = BorderStyle.None;
+				newPanel.Size = new System.Drawing.Size(270, 41);
+				newPanel.BackColor = System.Drawing.SystemColors.Info;
+				Point newpoint = new Point(7,ResultLocY);
+				newPanel.Location = newpoint;
+				
+				newPanel.Parent = ListPanel;
+				newPanel.Click += new EventHandler(newtbox_Click);			
+				
+				Label NewLabel = new Label();
+				TextBox NewtBoxB = new TextBox();
+				
+				NewLabel.BorderStyle = BorderStyle.None;
+				//NewLabel.ReadOnly = true;
+				//NewLabel.Multiline = true;
+				//NewLabel.WordWrap = true;
+				NewLabel.Size = new System.Drawing.Size(270, 15);
+				NewLabel.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+				Point boxpointA = new Point(0,0);
+				NewLabel.Location = boxpointA;				
+				Font fontL = new Font("Arial", 8,FontStyle.Bold);
+				NewLabel.Font = fontL;
+				DateTime myDate = DateTime.ParseExact(Hresult.resDate, "yyyyMMddHHmmssfff", null); 
+				NewLabel.Text = myDate.ToString(); 
+	    	    NewLabel.Name = "datelabel" + Hresult.resId;
+	    	    NewLabel.Click += new EventHandler(newtboxB_Click);
+	    	    NewLabel.Parent = newPanel;
+	    	    
+				NewtBoxB.BorderStyle = BorderStyle.None;
+				NewtBoxB.ReadOnly = true;
+				NewtBoxB.Multiline = true;
+				NewtBoxB.WordWrap = true;
+				NewtBoxB.Size = new System.Drawing.Size(270, 26);
+				NewtBoxB.BackColor = System.Drawing.SystemColors.HotTrack;
+				Point boxpointB = new Point(0,15);
+				NewtBoxB.Location = boxpointB;
+				Font fontT = new Font("Times New Roman", 10);
+				NewtBoxB.Font = fontT;
+				NewtBoxB.Text = Hresult.resMessage;
+	    	    NewtBoxB.Name = "textboxB" + Hresult.resId;
+	    	    NewtBoxB.Click += new EventHandler(newtboxB_Click);
+	    	    NewtBoxB.Parent = newPanel;
+	    	    
+	    	    newPanel.Name = "panel" + Hresult.resId;
+	
+			
+	    	    //ResultNo++;
+	    	    ResultLocY+=41;	
+			}
+		}
+		void PrintResults3()
+		{
+			ListPanel.Controls.Clear();
+			//ResultNo=1;
+        	ResultLocY = 1;
+			foreach(HistResult Hresult in ResultsList)
+			{
+				Panel newPanel = new Panel();
+				newPanel.BorderStyle = BorderStyle.None;
+				newPanel.Size = new System.Drawing.Size(270, 41);
+				newPanel.BackColor = System.Drawing.SystemColors.Info;
+				Point newpoint = new Point(7,ResultLocY);
+				newPanel.Location = newpoint;
+				
+				newPanel.Parent = ListPanel;
+				newPanel.Click += new EventHandler(newtbox_Click);			
+				
+				Label NewLabel = new Label();
+				RichTextBox NewtBoxB = new RichTextBox();
+				
+				NewLabel.BorderStyle = BorderStyle.None;
+				//NewLabel.ReadOnly = true;
+				//NewLabel.Multiline = true;
+				//NewLabel.WordWrap = true;
+				NewLabel.Size = new System.Drawing.Size(270, 15);
+				NewLabel.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+				Point boxpointA = new Point(0,0);
+				NewLabel.Location = boxpointA;				
+				Font fontL = new Font("Arial", 8,FontStyle.Bold);
+				NewLabel.Font = fontL;
+				DateTime myDate = DateTime.ParseExact(Hresult.resDate, "yyyyMMddHHmmssfff", null); 
+				NewLabel.Text = myDate.ToString(); 
+	    	    NewLabel.Name = "datelabel" + Hresult.resId;
+	    	    NewLabel.Click += new EventHandler(newtboxA_Click);
+	    	    NewLabel.Parent = newPanel;
+	    	    
+				NewtBoxB.BorderStyle = BorderStyle.None;
+				NewtBoxB.ReadOnly = true;
+				NewtBoxB.Multiline = true;
+				NewtBoxB.WordWrap = true;
+				NewtBoxB.Size = new System.Drawing.Size(270, 26);
+				NewtBoxB.BackColor = System.Drawing.SystemColors.HotTrack;
+				Point boxpointB = new Point(0,15);
+				NewtBoxB.Location = boxpointB;
+				Font fontT = new Font("Times New Roman", 10);
+				NewtBoxB.Font = fontT;
+				NewtBoxB.Text = Hresult.resMessage;
+	    	    NewtBoxB.Name = "textboxB" + Hresult.resId;
+	    	    NewtBoxB.Click += new EventHandler(newtboxB_Click);
+	    	    NewtBoxB.Parent = newPanel;
+
+	    	    string Phrase = Hresult.Phrase;
+	    	    int startIndex = NewtBoxB.Text.IndexOf(Phrase,StringComparison.OrdinalIgnoreCase);
+	    	    if(startIndex>=0)
+	            {
+	    	    	NewtBoxB.Select(startIndex, Phrase.Length);
+	                NewtBoxB.SelectionColor = Color.DarkSalmon;
+			    } 
+	    	    
+	    	    newPanel.Name = "panel" + Hresult.resId;
+	
+			
+	    	    //ResultNo++;
+	    	    ResultLocY+=41;	
+			}
 		}
 		void Panel1Paint(object sender, PaintEventArgs e)
 		{
 	
+		}
+		void TextBox1MouseClick(object sender, MouseEventArgs e)
+		{
+			MessageBox.Show("duup!");
 		}
 
 		/*void ResultsBrowserDocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)

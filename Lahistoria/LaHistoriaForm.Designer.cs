@@ -21,7 +21,6 @@ namespace Lahistoria
 		private System.Windows.Forms.ToolStripMenuItem optionsToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem convertToolStripMenuItem;
 		private System.Windows.Forms.Panel ListPanel;
-		private System.Windows.Forms.Label label1;
 		private System.Windows.Forms.Label label2;
 		private System.Windows.Forms.Label label3;
 		private System.Windows.Forms.Label label4;
@@ -49,17 +48,16 @@ namespace Lahistoria
 		private System.Windows.Forms.Button ConnectButton;
 		private System.Windows.Forms.CheckBox ConnectedBox;
 		private System.Windows.Forms.Label label13;
-		private System.Windows.Forms.Label label16;
 		private System.Windows.Forms.Button DisConnectButton;
 		private System.Windows.Forms.Panel ConnPanel;
 		private System.Windows.Forms.Panel SearchPanel;
 		private System.Windows.Forms.Button button3;
 		private System.Windows.Forms.Label label15;
 		private System.Windows.Forms.Label label14;
-		private System.Windows.Forms.Button RegExpSearchButton;
+		private System.Windows.Forms.Button RegExSearchButton;
 		private System.Windows.Forms.Button SearchButton;
-		private System.Windows.Forms.TextBox textBox7;
-		private System.Windows.Forms.TextBox textBox6;
+		private System.Windows.Forms.TextBox RegExpSearchBox;
+		private System.Windows.Forms.TextBox SearchBox;
 		private System.Windows.Forms.Panel HistoryPanel;
 		private System.Windows.Forms.ProgressBar progressBar1;
 		private System.Windows.Forms.Label label17;
@@ -68,6 +66,7 @@ namespace Lahistoria
 		private System.Windows.Forms.WebBrowser ResultsBrowser;
 		private System.Windows.Forms.WebBrowser DetailsBrowser;
 		private System.Windows.Forms.NotifyIcon notifyIcon1;
+		private System.Windows.Forms.TextBox textBox1;
 
 		
 		/// <summary>
@@ -100,9 +99,8 @@ namespace Lahistoria
 			this.baseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.ListPanel = new System.Windows.Forms.Panel();
+			this.textBox1 = new System.Windows.Forms.TextBox();
 			this.ResultsBrowser = new System.Windows.Forms.WebBrowser();
-			this.label16 = new System.Windows.Forms.Label();
-			this.label1 = new System.Windows.Forms.Label();
 			this.label2 = new System.Windows.Forms.Label();
 			this.label3 = new System.Windows.Forms.Label();
 			this.label4 = new System.Windows.Forms.Label();
@@ -137,11 +135,11 @@ namespace Lahistoria
 			this.progressBar1 = new System.Windows.Forms.ProgressBar();
 			this.button3 = new System.Windows.Forms.Button();
 			this.label15 = new System.Windows.Forms.Label();
-			this.RegExpSearchButton = new System.Windows.Forms.Button();
+			this.RegExSearchButton = new System.Windows.Forms.Button();
 			this.label14 = new System.Windows.Forms.Label();
 			this.SearchButton = new System.Windows.Forms.Button();
-			this.textBox7 = new System.Windows.Forms.TextBox();
-			this.textBox6 = new System.Windows.Forms.TextBox();
+			this.RegExpSearchBox = new System.Windows.Forms.TextBox();
+			this.SearchBox = new System.Windows.Forms.TextBox();
 			this.HistoryPanel = new System.Windows.Forms.Panel();
 			this.DetailsBrowser = new System.Windows.Forms.WebBrowser();
 			this.label17 = new System.Windows.Forms.Label();
@@ -204,38 +202,30 @@ namespace Lahistoria
 			// 
 			// ListPanel
 			// 
+			this.ListPanel.AutoScroll = true;
 			this.ListPanel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+			this.ListPanel.Controls.Add(this.textBox1);
 			this.ListPanel.Controls.Add(this.ResultsBrowser);
-			this.ListPanel.Controls.Add(this.label16);
-			this.ListPanel.Controls.Add(this.label1);
-			this.ListPanel.Location = new System.Drawing.Point(264, 34);
+			this.ListPanel.Location = new System.Drawing.Point(264, 36);
 			this.ListPanel.Name = "ListPanel";
-			this.ListPanel.Size = new System.Drawing.Size(286, 671);
+			this.ListPanel.Size = new System.Drawing.Size(286, 608);
 			this.ListPanel.TabIndex = 2;
+			// 
+			// textBox1
+			// 
+			this.textBox1.Location = new System.Drawing.Point(149, 345);
+			this.textBox1.Name = "textBox1";
+			this.textBox1.Size = new System.Drawing.Size(100, 20);
+			this.textBox1.TabIndex = 2;
+			this.textBox1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.TextBox1MouseClick);
 			// 
 			// ResultsBrowser
 			// 
-			this.ResultsBrowser.Location = new System.Drawing.Point(30, 423);
+			this.ResultsBrowser.Location = new System.Drawing.Point(30, 421);
 			this.ResultsBrowser.MinimumSize = new System.Drawing.Size(20, 20);
 			this.ResultsBrowser.Name = "ResultsBrowser";
-			this.ResultsBrowser.Size = new System.Drawing.Size(249, 246);
+			this.ResultsBrowser.Size = new System.Drawing.Size(249, 154);
 			this.ResultsBrowser.TabIndex = 1;
-			// 
-			// label16
-			// 
-			this.label16.Location = new System.Drawing.Point(3, 11);
-			this.label16.Name = "label16";
-			this.label16.Size = new System.Drawing.Size(754, 23);
-			this.label16.TabIndex = 0;
-			this.label16.Text = "label16";
-			// 
-			// label1
-			// 
-			this.label1.Location = new System.Drawing.Point(3, 11);
-			this.label1.Name = "label1";
-			this.label1.Size = new System.Drawing.Size(754, 23);
-			this.label1.TabIndex = 0;
-			this.label1.Text = "label1";
 			// 
 			// label2
 			// 
@@ -519,11 +509,11 @@ namespace Lahistoria
 			this.SearchPanel.Controls.Add(this.progressBar1);
 			this.SearchPanel.Controls.Add(this.button3);
 			this.SearchPanel.Controls.Add(this.label15);
-			this.SearchPanel.Controls.Add(this.RegExpSearchButton);
+			this.SearchPanel.Controls.Add(this.RegExSearchButton);
 			this.SearchPanel.Controls.Add(this.label14);
 			this.SearchPanel.Controls.Add(this.SearchButton);
-			this.SearchPanel.Controls.Add(this.textBox7);
-			this.SearchPanel.Controls.Add(this.textBox6);
+			this.SearchPanel.Controls.Add(this.RegExpSearchBox);
+			this.SearchPanel.Controls.Add(this.SearchBox);
 			this.SearchPanel.Location = new System.Drawing.Point(3, 208);
 			this.SearchPanel.Name = "SearchPanel";
 			this.SearchPanel.Size = new System.Drawing.Size(249, 100);
@@ -553,15 +543,15 @@ namespace Lahistoria
 			this.label15.TabIndex = 5;
 			this.label15.Text = "Milions!";
 			// 
-			// RegExpSearchButton
+			// RegExSearchButton
 			// 
-			this.RegExpSearchButton.Location = new System.Drawing.Point(147, 31);
-			this.RegExpSearchButton.Name = "RegExpSearchButton";
-			this.RegExpSearchButton.Size = new System.Drawing.Size(97, 23);
-			this.RegExpSearchButton.TabIndex = 3;
-			this.RegExpSearchButton.Text = "RegExp Search";
-			this.RegExpSearchButton.UseVisualStyleBackColor = true;
-			this.RegExpSearchButton.Click += new System.EventHandler(this.RegExpSearchButtonClick);
+			this.RegExSearchButton.Location = new System.Drawing.Point(147, 31);
+			this.RegExSearchButton.Name = "RegExSearchButton";
+			this.RegExSearchButton.Size = new System.Drawing.Size(97, 23);
+			this.RegExSearchButton.TabIndex = 3;
+			this.RegExSearchButton.Text = "RegEx Search";
+			this.RegExSearchButton.UseVisualStyleBackColor = true;
+			this.RegExSearchButton.Click += new System.EventHandler(this.RegExpSearchButtonClick);
 			// 
 			// label14
 			// 
@@ -581,19 +571,19 @@ namespace Lahistoria
 			this.SearchButton.UseVisualStyleBackColor = true;
 			this.SearchButton.Click += new System.EventHandler(this.SearchButtonClick);
 			// 
-			// textBox7
+			// RegExpSearchBox
 			// 
-			this.textBox7.Location = new System.Drawing.Point(4, 31);
-			this.textBox7.Name = "textBox7";
-			this.textBox7.Size = new System.Drawing.Size(137, 20);
-			this.textBox7.TabIndex = 1;
+			this.RegExpSearchBox.Location = new System.Drawing.Point(4, 31);
+			this.RegExpSearchBox.Name = "RegExpSearchBox";
+			this.RegExpSearchBox.Size = new System.Drawing.Size(137, 20);
+			this.RegExpSearchBox.TabIndex = 1;
 			// 
-			// textBox6
+			// SearchBox
 			// 
-			this.textBox6.Location = new System.Drawing.Point(4, 4);
-			this.textBox6.Name = "textBox6";
-			this.textBox6.Size = new System.Drawing.Size(137, 20);
-			this.textBox6.TabIndex = 0;
+			this.SearchBox.Location = new System.Drawing.Point(4, 4);
+			this.SearchBox.Name = "SearchBox";
+			this.SearchBox.Size = new System.Drawing.Size(137, 20);
+			this.SearchBox.TabIndex = 0;
 			// 
 			// HistoryPanel
 			// 
@@ -647,6 +637,7 @@ namespace Lahistoria
 			this.menuStrip1.ResumeLayout(false);
 			this.menuStrip1.PerformLayout();
 			this.ListPanel.ResumeLayout(false);
+			this.ListPanel.PerformLayout();
 			this.FSpanel.ResumeLayout(false);
 			this.FSpanel.PerformLayout();
 			this.DBpanel.ResumeLayout(false);

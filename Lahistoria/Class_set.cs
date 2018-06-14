@@ -18,14 +18,16 @@ namespace Lahistoria
 	
 		public class HistResult
 		{
-			string resId;
+			public string resId;
 			public string resDate;
 			public string resMessage;
-			public HistResult(string id, string date, string msg)
+			public string Phrase;
+			public HistResult(string id, string date, string msg, string phrase)
 			{
 				resId = id;
 				resDate = date;
 				resMessage = msg;
+				Phrase = phrase;
 			}
 			
 		}
@@ -38,18 +40,18 @@ namespace Lahistoria
 			public SearchResults(System.Windows.Forms.WebBrowser wb)
 			{
 				ResultsList = new List<HistResult>();
-				ResultsList.Add(new HistResult("1a","2018/05/25","Row grid lines and column grid lines start at 1 and end at a value that is 1 greater than the number of rows or columns the grid has"));
-				ResultsList.Add(new HistResult("2a","2012/04/25","The value for grid-row-start should be the row at which you want the grid item to begin."));
-				ResultsList.Add(new HistResult("1t","2013/05/15","It is possible for the value of grid-row-start to be greater than that of "));
-				ResultsList.Add(new HistResult("1a","2018/05/25","Row grid lines and column grid lines start at 1 and end at a value that is 1 greater than the number of rows or columns the grid has"));
-				ResultsList.Add(new HistResult("2a","2012/04/25","The value for grid-row-start should be the row at which you want the grid item to begin."));
-				ResultsList.Add(new HistResult("1t","2013/05/15","It is possible for the value of grid-row-start to be greater than that of "));
-				ResultsList.Add(new HistResult("1a","2018/05/25","Row grid lines and column grid lines start at 1 and end at a value that is 1 greater than the number of rows or columns the grid has"));
-				ResultsList.Add(new HistResult("2a","2012/04/25","The value for grid-row-start should be the row at which you want the grid item to begin."));
-				ResultsList.Add(new HistResult("1t","2013/05/15","It is possible for the value of grid-row-start to be greater than that of "));
-				ResultsList.Add(new HistResult("1a","2018/05/25","Row grid lines and column grid lines start at 1 and end at a value that is 1 greater than the number of rows or columns the grid has"));
-				ResultsList.Add(new HistResult("2a","2012/04/25","The value for grid-row-start should be the row at which you want the grid item to begin."));
-				ResultsList.Add(new HistResult("1t","2013/05/15","It is possible for the value of grid-row-start to be greater than that of "));
+				//ResultsList.Add(new HistResult("1a","2018/05/25","Row grid lines and column grid lines start at 1 and end at a value that is 1 greater than the number of rows or columns the grid has"));
+				//ResultsList.Add(new HistResult("2a","2012/04/25","The value for grid-row-start should be the row at which you want the grid item to begin."));
+				//ResultsList.Add(new HistResult("1t","2013/05/15","It is possible for the value of grid-row-start to be greater than that of "));
+				//ResultsList.Add(new HistResult("1a","2018/05/25","Row grid lines and column grid lines start at 1 and end at a value that is 1 greater than the number of rows or columns the grid has"));
+				//ResultsList.Add(new HistResult("2a","2012/04/25","The value for grid-row-start should be the row at which you want the grid item to begin."));
+				//ResultsList.Add(new HistResult("1t","2013/05/15","It is possible for the value of grid-row-start to be greater than that of "));
+				//ResultsList.Add(new HistResult("1a","2018/05/25","Row grid lines and column grid lines start at 1 and end at a value that is 1 greater than the number of rows or columns the grid has"));
+				//ResultsList.Add(new HistResult("2a","2012/04/25","The value for grid-row-start should be the row at which you want the grid item to begin."));
+				//ResultsList.Add(new HistResult("1t","2013/05/15","It is possible for the value of grid-row-start to be greater than that of "));
+				//ResultsList.Add(new HistResult("1a","2018/05/25","Row grid lines and column grid lines start at 1 and end at a value that is 1 greater than the number of rows or columns the grid has"));
+				//ResultsList.Add(new HistResult("2a","2012/04/25","The value for grid-row-start should be the row at which you want the grid item to begin."));
+				//ResultsList.Add(new HistResult("1t","2013/05/15","It is possible for the value of grid-row-start to be greater than that of "));
 			
 				divheight = 840;
 				divresults ="<div class=\"grid\">";
