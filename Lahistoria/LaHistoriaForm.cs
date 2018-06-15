@@ -12,17 +12,13 @@ using System.Drawing;
 using System.Windows.Forms;
 using System.Text.RegularExpressions;
 using System.IO;
-using System.Data;
-using Oracle.ManagedDataAccess.Client;
+//using Oracle.ManagedDataAccess.Client;
 
 namespace Lahistoria
 {
 
 	public partial class MainForm : Form
 	{	
-		//connection parameter
-		OracleConnection ora_con;
-		
 		//parameters
 		bool def_set;
 		bool srcDB;
@@ -55,18 +51,18 @@ namespace Lahistoria
 	        string def_con_sid;
 	        string def_fs_dir;
 	        bool def_autoconnect = false;
-			//
-			// The InitializeComponent() call is required for Windows Forms designer support.
-			//
-			InitializeComponent();
+
+	        InitializeComponent();
+	        
 			string filePath = @"./settings.txt";
 			StreamReader sr = new StreamReader(filePath);
 			ResultsList = new List<HistResult>();
 			int Row = 0;
+			
+			//setting defaults
 			while (!sr.EndOfStream)
 			{
 				string[] Line = sr.ReadLine().Split(';');
-				//MessageBox.Show(Line[1]);
 				switch(Line[0])
 				{
 					case "default": {if(Line[1]=="true")def_set=true; else def_set=false;}
@@ -132,142 +128,69 @@ namespace Lahistoria
 		       SourceFolder.Text= folderpath;		       
 		    }
 		}
-		void ConnectButtonClick(object sender, EventArgs e)
-		{
 
-			
-			
-			if(DBcheckBox.Checked || FScheckBox.Checked)
-			{
-				try {
-					ora_con = new OracleConnection();
-					ora_con.ConnectionString = "Data Source=(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)" +
-														"(HOST="+con_host+")(PORT="+con_port+")))" +
-														"(CONNECT_DATA=(SERVER=DEDICATED)(SERVICE_NAME="+con_sid+")));" +
-														"user id="+con_user+";Password="+con_password;
-				    ora_con.Open();
-				    ConnectedBox.Checked=true;
-				    DBcheckBox.Enabled=false;
-				    FScheckBox.Enabled=false;
-					FSpanel.Enabled=false;
-					DBpanel.Enabled=false;
-					ConnectButton.Enabled=false;
-					DisConnectButton.Enabled=true;
-				    	
-				} catch (Exception ex) {
-					ConnectedBox.Checked=false;
-					MessageBox.Show(ex.Message);
-				}
-				
-			}
-
-			
-		}
-		void DisConnectButtonClick(object sender, EventArgs e)
-		{
-			ConnectButton.Enabled=true;
-			DisConnectButton.Enabled=false;
-			
-		    ora_con.Close();
-		    ora_con.Dispose();
-		    ConnectedBox.Checked=false;
-			DBcheckBox.Enabled=true;
-			FScheckBox.Enabled=true;
-			FSpanel.Enabled=true;
-			DBpanel.Enabled=true;
-			
-		    MessageBox.Show("Disconnected");
-		}
-		void Button4Click(object sender, EventArgs e)
-		{
-		    //OracleConnection con = new OracleConnection();
-		 
-		    //using connection string attributes to connect to Oracle Database
-		    //con.ConnectionString = "Data Source=(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST=192.168.227.133)(PORT=1521)))(CONNECT_DATA=(SERVER=DEDICATED)(SERVICE_NAME=XE)));user id=test;Password=password";
-		    //con.Open();
-		    DataSet dataSet = new DataSet();
-		    OracleDataAdapter adapter = new OracleDataAdapter("select * from kid", ora_con);
-		    adapter.Fill(dataSet);
-			string[] arrvalues = new string[dataSet.Tables[0].Rows.Count];
-			
-			//loopcounter
-			for (int loopcounter = 0; loopcounter< dataSet.Tables[0].Rows.Count; loopcounter++)
-			{
-			    //assign dataset values to array
-			    arrvalues[loopcounter] = dataSet.Tables[0].Rows[loopcounter]["HOUSE"].ToString();
-			}
-		    //DataRow[] rows = table.Select();
-		    for(int i=0;i<arrvalues.Length;i++)
-		    MessageBox.Show(arrvalues[i]);
-		   // foreach (DataRow row in table.Rows)
-		    //{
-		    //	MessageBox.Show(row.Field<string>(0));
-		    //}
-		    
-		    //MessageBox.Show(rows[0]["sql"]);
-		    
-		    // Close and Dispose OracleConnection object
-		    //con.Close();
-		    //con.Dispose();
-		    //MessageBox.Show("Disconnected");		
-			
-		}
-		void FScheckBoxCheckedChanged(object sender, EventArgs e)
-		{
-			defSrcSettingsBox.Checked= false;
-			if(FScheckBox.Checked) FSpanel.Enabled=true;else FSpanel.Enabled=false;
-		}
-		void DBcheckBoxCheckedChanged(object sender, EventArgs e)
-		{
-			defSrcSettingsBox.Checked= false;
-			if(DBcheckBox.Checked) DBpanel.Enabled=true;else DBpanel.Enabled=false;
-		}
-		void HostTextBoxTextChanged(object sender, EventArgs e)
-		{
-			defSrcSettingsBox.Checked= false;
-		}
-		void PortTextBoxTextChanged(object sender, EventArgs e)
-		{
-			defSrcSettingsBox.Checked= false;
-		}
-		void UserTextBoxTextChanged(object sender, EventArgs e)
-		{
-			defSrcSettingsBox.Checked= false;
-		}
-		void PassTextBoxTextChanged(object sender, EventArgs e)
-		{
-			defSrcSettingsBox.Checked= false;
-		}
-		void SIDTextBoxTextChanged(object sender, EventArgs e)
-		{
-			defSrcSettingsBox.Checked= false;
-		}
-		void SourceFolderTextChanged(object sender, EventArgs e)
-		{
-			defSrcSettingsBox.Checked= false;
-		}
-	
 
 		void SearchButtonClick(object sender, EventArgs e)
 		{
 			
-			DetailsBrowser.DocumentText = "<html>hello right window</html>";
+			//DetailsBrowser.DocumentText = "<html>hello right window</html>";
 			
 			string filePath = @"./conv.txt";
+			string[] Line = {"1","2"};
 			int startIndex;
 			StreamReader sr = new StreamReader(filePath);
+			string resultEntry;
+			int resultIndex = 0;
+			bool lineDone = false;
+			
 			ResultsList.Clear();
 			while (!sr.EndOfStream)
 			{
-				string[] Line = sr.ReadLine().Split('|');
-				startIndex = Line[10].IndexOf(SearchBox.Text,StringComparison.OrdinalIgnoreCase);
-				if(SearchBox.Text != "" && startIndex>=0)
+				Line = sr.ReadLine().Split('|');
+				while(!lineDone && Line.Length==11)
 				{
-					ResultsList.Add(new HistResult(Line[0], Line[2], Line[10],SearchBox.Text));
+					startIndex = Line[10].IndexOf(SearchBox.Text,resultIndex,StringComparison.OrdinalIgnoreCase);
+					if(SearchBox.Text != "" && startIndex>=0)
+					{
+						resultEntry=CutLongString(Line[10],SearchBox.Text,resultIndex);
+						ResultsList.Add(new HistResult(Line[0], Line[2], resultEntry, SearchBox.Text,startIndex));
+						
+						resultIndex = startIndex + 1;
+					}	
+					else
+					{
+						lineDone = true;
+					}
 				}
-
+				lineDone = false;
+				resultIndex = 0;
 			}
 			PrintResults3();	 
+		}
+		string CutLongString(string line, string phrase,int pos)
+		{
+			string newline = "default";
+			int offset = line.IndexOf(phrase,pos,StringComparison.OrdinalIgnoreCase);
+			if (offset<=120 && line.Length<=130)
+			{
+				newline=line.Substring(0,line.Length);
+			}
+			else if(offset<=65 && line.Length>130)
+			{
+				newline=line.Substring(0,130) + "...";
+			}
+			else if(offset>65 && offset<=120 && line.Length>130 && line.Length<offset+65)
+			{
+				newline="..." + line.Substring(offset-65,line.Length-(offset-65));
+			}
+			else if(offset>65 && offset<=120 && line.Length>130)
+			{
+				newline="..." + line.Substring(offset-65,130) + "...";
+			}
+			else
+			{
+			}
+			return newline;
 		}
 		void RegExpSearchButtonClick(object sender, EventArgs e)
 		{
@@ -275,24 +198,29 @@ namespace Lahistoria
 			
 			string filePath = @"./conv.txt";
 			Regex regex;
-			
-			if(RegExpSearchBox.Text=="") regex = new Regex(@".*");
-			else regex = new Regex(RegExpSearchBox.Text);
-			       	
-			StreamReader sr = new StreamReader(filePath);
-			ResultsList.Clear();
-			while (!sr.EndOfStream)
+		
+			if(RegExpSearchBox.Text=="" || RegExpSearchBox.Text=="*" || RegExpSearchBox.Text==".*"|| RegExpSearchBox.Text==".*$") 
+				MessageBox.Show("Be more specific!");
+			else 
 			{
-				string[] Line = sr.ReadLine().Split('|');
-				Match m = regex.Match(Line[10]);
-				
-		       	while (m.Success) 
-		       	{
-		       		ResultsList.Add(new HistResult(Line[0], Line[2], Line[10], m.Value));
-		          	m = m.NextMatch();
-		      	}
+				regex = new Regex(RegExpSearchBox.Text);
+				StreamReader sr = new StreamReader(filePath);
+				ResultsList.Clear();
+				while (!sr.EndOfStream)
+				{
+					string[] Line = sr.ReadLine().Split('|');
+					Match m = regex.Match(Line[10]);
+					
+			       	while (m.Success) 
+			       	{
+			       		ResultsList.Add(new HistResult(Line[0], Line[2], Line[10], m.Value, m.Index));
+			          	m = m.NextMatch();
+			      	}
+				}
+				PrintResults3();
 			}
-			PrintResults3();
+			       	
+
 		}
 		void newtbox_Click (object sender, EventArgs e)
 		{
@@ -407,7 +335,7 @@ namespace Lahistoria
 			{
 				Panel newPanel = new Panel();
 				newPanel.BorderStyle = BorderStyle.None;
-				newPanel.Size = new System.Drawing.Size(270, 41);
+				newPanel.Size = new System.Drawing.Size(302, 77);
 				newPanel.BackColor = System.Drawing.SystemColors.Info;
 				Point newpoint = new Point(7,ResultLocY);
 				newPanel.Location = newpoint;
@@ -438,11 +366,11 @@ namespace Lahistoria
 				NewtBoxB.ReadOnly = true;
 				NewtBoxB.Multiline = true;
 				NewtBoxB.WordWrap = true;
-				NewtBoxB.Size = new System.Drawing.Size(270, 26);
+				NewtBoxB.Size = new System.Drawing.Size(302, 62);
 				NewtBoxB.BackColor = System.Drawing.SystemColors.HotTrack;
 				Point boxpointB = new Point(0,15);
 				NewtBoxB.Location = boxpointB;
-				Font fontT = new Font("Times New Roman", 10);
+				Font fontT = new Font("Times New Roman", 11);
 				NewtBoxB.Font = fontT;
 				NewtBoxB.Text = Hresult.resMessage;
 	    	    NewtBoxB.Name = "textboxB" + Hresult.resId;
@@ -461,45 +389,9 @@ namespace Lahistoria
 	
 			
 	    	    //ResultNo++;
-	    	    ResultLocY+=41;	
+	    	    ResultLocY+=77;	
 			}
 		}
-		void Panel1Paint(object sender, PaintEventArgs e)
-		{
-	
-		}
-		void TextBox1MouseClick(object sender, MouseEventArgs e)
-		{
-			MessageBox.Show("duup!");
-		}
-
-		/*void ResultsBrowserDocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
-		{
-			this.ResultsBrowser.Document.Body.MouseDown += new HtmlElementEventHandler(Body_MouseDown);
-		}
-		void Body_MouseDown(Object sender, HtmlElementEventArgs e)
-		{
-		    switch(e.MouseButtonsPressed)
-		    {
-		    case MouseButtons.Left:
-		    		{	
-		    			Point ScreenCoord = new Point(e.MousePosition.X, e.MousePosition.Y);
-						Point BrowserCoord = DetailsBrowser.PointToClient(ScreenCoord);	
-						//HtmlElement elem = DetailsBrowser.Document.GetElementFromPoint(BrowserCoord);	
-						
-		    			//Point p = DetailsBrowser.PointToScreen(e.ClientMousePosition);
-		    			DetailsBrowser.DocumentText = BrowserCoord.Y.ToString();
-		    			}
-		    		//e.OffsetMousePosition.ToString()
-		    		//{MessageBox.Show(e.MousePosition.ToString());
-		        
-		    break;
-		    case MouseButtons.Right:
-		        {MessageBox.Show("Pupa");
-		        }
-		    break;
-		    }
-		}*/
 		
 	}
 }

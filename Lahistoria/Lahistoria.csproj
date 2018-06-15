@@ -54,10 +54,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Class_set.cs" />
+    <Compile Include="connection.cs" />
     <Compile Include="LaHistoriaForm.cs" />
     <Compile Include="LaHistoriaForm.Designer.cs">
       <DependentUpon>LaHistoriaForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="little events.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

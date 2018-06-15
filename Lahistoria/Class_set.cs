@@ -22,12 +22,14 @@ namespace Lahistoria
 			public string resDate;
 			public string resMessage;
 			public string Phrase;
-			public HistResult(string id, string date, string msg, string phrase)
+			public int Position;
+			public HistResult(string id, string date, string msg, string phrase,int position)
 			{
 				resId = id;
 				resDate = date;
 				resMessage = msg;
 				Phrase = phrase;
+				Position = position;
 			}
 			
 		}
