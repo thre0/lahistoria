@@ -63,7 +63,6 @@ namespace Lahistoria
 		private System.Windows.Forms.Label label17;
 		private System.Windows.Forms.Button button4;
 		private System.Windows.Forms.Panel FSpanel;
-		private System.Windows.Forms.WebBrowser ResultsBrowser;
 		private System.Windows.Forms.NotifyIcon notifyIcon1;
 		private System.Windows.Forms.TextBox textBox1;
 
@@ -99,7 +98,6 @@ namespace Lahistoria
 			this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.ListPanel = new System.Windows.Forms.Panel();
 			this.textBox1 = new System.Windows.Forms.TextBox();
-			this.ResultsBrowser = new System.Windows.Forms.WebBrowser();
 			this.label2 = new System.Windows.Forms.Label();
 			this.label3 = new System.Windows.Forms.Label();
 			this.label4 = new System.Windows.Forms.Label();
@@ -202,27 +200,18 @@ namespace Lahistoria
 			this.ListPanel.AutoScroll = true;
 			this.ListPanel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
 			this.ListPanel.Controls.Add(this.textBox1);
-			this.ListPanel.Controls.Add(this.ResultsBrowser);
 			this.ListPanel.Location = new System.Drawing.Point(264, 36);
 			this.ListPanel.Name = "ListPanel";
-			this.ListPanel.Size = new System.Drawing.Size(328, 664);
+			this.ListPanel.Size = new System.Drawing.Size(328, 669);
 			this.ListPanel.TabIndex = 2;
 			// 
 			// textBox1
 			// 
-			this.textBox1.Location = new System.Drawing.Point(149, 345);
+			this.textBox1.Location = new System.Drawing.Point(3, 638);
 			this.textBox1.Name = "textBox1";
 			this.textBox1.Size = new System.Drawing.Size(100, 20);
 			this.textBox1.TabIndex = 2;
 			this.textBox1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.TextBox1MouseClick);
-			// 
-			// ResultsBrowser
-			// 
-			this.ResultsBrowser.Location = new System.Drawing.Point(30, 421);
-			this.ResultsBrowser.MinimumSize = new System.Drawing.Size(20, 20);
-			this.ResultsBrowser.Name = "ResultsBrowser";
-			this.ResultsBrowser.Size = new System.Drawing.Size(249, 154);
-			this.ResultsBrowser.TabIndex = 1;
 			// 
 			// label2
 			// 
@@ -609,6 +598,7 @@ namespace Lahistoria
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+			this.BackColor = System.Drawing.Color.Tan;
 			this.ClientSize = new System.Drawing.Size(1280, 708);
 			this.Controls.Add(this.label17);
 			this.Controls.Add(this.HistoryPanel);

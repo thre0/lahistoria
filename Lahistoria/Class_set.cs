@@ -11,29 +11,89 @@ using System.Collections.Generic;
 
 namespace Lahistoria
 {
-	public class BetterWebBrowser : System.Windows.Forms.WebBrowser
-	{
-		//
-	}
 	
-		public class HistResult
+		public class Message_Entry
 		{
-			public string resId;
-			public string resDate;
-			public string resMessage;
+			public string uniqueId;
+			public string msgId;
+			public string msgDate;
+			public string sessionId;
+			public string connection;
+			public string contactId;
+			
+			public string Message;
+			public string shortMessage;
+			
+			public string sender_id;
+			public string sender_name;
+			public string receiver_id;
+			public string receiver_name;
+			
 			public string Phrase;
 			public int Position;
-			public HistResult(string id, string date, string msg, string phrase,int position)
-			{
-				resId = id;
-				resDate = date;
-				resMessage = msg;
+			public int shortPosition;
+			private int refPosition;
+			
+			public Message_Entry(string id, string date, string conn,string session, string contact,string senderid,string sendern, string receiverid, string receivern, string msg, string phrase,int position)
+			{		
+				uniqueId = DateTime.Now.ToString("yyyyMMddHHmmssfff") + id + position;
+				msgId = id;
+				msgDate = date;
+				sessionId = session;
+				connection = conn;
+				contactId = contact;
+				
+				sender_id = senderid;
+				sender_name = sendern;
+				receiver_id = receiverid;
+				receiver_name = receivern;
+				Message = msg;
 				Phrase = phrase;
 				Position = position;
+				
+				if (position >= 0)
+				{
+					uniqueId = DateTime.Now.ToString("yyyyMMddHHmmssfff") + id + position;
+					shortMessage = CutLongString(msg,phrase,position);
+					shortPosition = shortMessage.IndexOf(phrase,position-refPosition,StringComparison.OrdinalIgnoreCase);	
+				}
+				else
+				{
+					uniqueId = "conv" + DateTime.Now.ToString("yyyyMMddHHmmssfff") + id;
+				}
+			
+
+				
+			}
+			private string CutLongString(string line, string phrase,int pos)
+			{
+				string newline = "default";
+				int offset = line.IndexOf(phrase,pos,StringComparison.OrdinalIgnoreCase);
+				if (line.Length<=150)
+				{
+					newline=line.Substring(0,line.Length);
+					refPosition = 0;
+				}
+				else if(offset<=75 && line.Length>150)
+				{
+					newline=line.Substring(0,150) + "...";
+					refPosition = 0;
+				}
+				else if(offset>75 && line.Length<offset+75)
+				{
+					newline="..." + line.Substring(line.Length-150,150);
+					refPosition = (offset-75-3);
+				}				
+				else
+				{
+					newline="..." + line.Substring(offset-75,150) + "...";
+					refPosition = (offset-75-3);
+				}					
+				return newline;
 			}
 			
 		}
-		public class SearchResults
+		/*public class SearchResults
 		{
 			List<HistResult> ResultsList;
 			int divheight;
@@ -63,7 +123,7 @@ namespace Lahistoria
 				int i=0;
 	        	foreach(HistResult Hresult in ResultsList)
 	        	{
-					divresults += "<div class=\"box b"+ i +"\">" + Hresult.resDate + "<br>" + Hresult.resMessage + "</div>";
+					divresults += "<div class=\"box b"+ i +"\">" + Hresult.resDate + "<br>" + Hresult.Message + "</div>";
 					
 					if(i%2==1)
 						divstyle += ".b" + i + "{ color: red;background-color: white; font-size: 15px; }";
@@ -84,5 +144,5 @@ namespace Lahistoria
 				+divresults
 				+"</html>";			
 			}
-		}
+		}*/
 }

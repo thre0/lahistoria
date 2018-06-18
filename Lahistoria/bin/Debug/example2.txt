@@ -1,0 +1,34 @@
+1|SKYPE|id1|20180406105523000|20180406105818000|Pan Zdzislaw|20180406105523000|Pan_Zdzislaw|Zdzichu|thr|Wojtek|Hi there!
+2|SKYPE|id1|20180406105523000|20180406105818000|Pan Zdzislaw|20180406105523000|thr|Wojtek|Pan Zdzislaw|Zdzichu|Hi man!
+3|SKYPE|id1|20180406105523000|20180406105818000|Pan Zdzislaw|20180406105523000|thr|Wojtek|Pan Zdzislaw|Zdzichu|What's up?
+4|SKYPE|id1|20180406105523000|20180406105818000|Pan Zdzislaw|20180406105523000|Pan_Zdzislaw|Zdzichu|thr|Wojtek|Nothing!
+5|SKYPE|id1|20180406105523000|20180406105818000|Pan Zdzislaw|20180406105523000|thr|Wojtek|Pan Zdzislaw|Zdzichu|Well bye then!
+6|SKYPE|id1|20180406105523000|20180406105818000|Pan Zdzislaw|20180406105523000|Pan Zdzislaw|Zdzichu|thr|Wojtek|See you!
+7|SKYPE|id1|20180406105523000|20180406105818000|Pan Zdzislaw|20180406105523000|Pan Zdzislaw|Zdzichu|thr|Wojtek|The area around Shangri-La Hotel Singapore has been designated as a special event area for the upcoming summit between US President Donald Trump and North Korean leader Kim Jong Un.This was announced
+8|SKYPE|id1|20180406105523000|20180406105818000|Pan Zdzislaw|20180406105523000|Pan Zdzislaw|Zdzichu|thr|Wojtek|"Following yesterday's announcement that we will be receiving our ""personal travel policies by secure e-mail this year"", I am looking at the email I just received scratching my head wondering what is secure about"
+9|SKYPE|id1|20180406105523000|20180406105818000|Pan Zdzislaw|20180406105523000|Pan Zdzislaw|Zdzichu|thr|Wojtek|"Why does IT Support need your desk number before they can progress a helpdesk call.  Can't imagine why it is so important, especially given so many of us work from client sites or hot desks so it is often not applicable or changes on a daily basis.  Seems like a cheeky way of delaying the response at the fault of the customer."
+A|SKYPE|id1|20180406105523000|20180406105818000|Pan Zdzislaw|20180406105523000|Pan Zdzislaw|Zdzichu|thr|Wojtek|On which part of the operating model would you like greater clarity?
+B|SKYPE|id2|20180406105523000|20180406105818000|Pan Zdzislaw|20180406105523000|Pan Zdzislaw|Zdzichu|thr|Wojtek|On which part of the operating model would you like greater clarity?On which part of the operating model would you like 666 clarity?
+C|Trillian|id2|20180406105523000|20180406105818000|Pan Zdzislaw|20180406105523000|Pan Zdzislaw|Zdzichu|thr|Wojtek|Hi there!
+D|Trillian|id2|20180406105523000|20180406105818000|Pan Zdzislaw|20180406105523000|thr|Wojtek|Pan Zdzislaw|Zdzichu|Hi man!
+E|Trillian|id2|20180406105523000|20180406105818000|Pan Zdzislaw|20180406105523000|thr|Wojtek|Pan Zdzislaw|Zdzichu|What's up?
+F|Trillian|id2|20180406105523000|20180406105818000|Pan Zdzislaw|20180406105523000|Pan Zdzislaw|Zdzichu|thr|Wojtek|Nothing!
+10|Trillian|id2|20180406105523000|20180406105818000|Pan Zdzislaw|20180406105523000|thr|Wojtek|Pan Zdzislaw|Zdzichu|Well bye then!
+11|Trillian|id2|20180406105523000|20180406105818000|Pan Zdzislaw|20180406105523000|Pan Zdzislaw|Zdzichu|thr|Wojtek|See you!
+12|Trillian|id2|20180406105523000|20180406105818000|Pan Zdzislaw|20180406105523000|Pan Zdzislaw|Zdzichu|thr|Wojtek|The area around Shangri-La Hotel Singapore has been designated as a special event area for the upcoming summit between US President Donald Trump and North Korean leader Kim Jong Un.This was announced
+13|Trillian|id2|20180406105523000|20180406105818000|Pan Zdzislaw|20180406105523000|Pan Zdzislaw|Zdzichu|thr|Wojtek|"Following yesterday's announcement that we will be receiving our ""personal travel policies by secure e-mail this year"", I am looking at the email I just received scratching my head wondering what is secure about"
+14|Trillian|id2|20180406105523000|20180406105818000|Pan Zdzislaw|20180406105523000|Pan Zdzislaw|Zdzichu|thr|Wojtek|"Why does IT Support need your desk number before they can progress a helpdesk call.  Can't imagine why it is so important,especially given so many of us work from client sites or hot desks so it is often not applicable or changes on a daily basis.  Seems like a cheeky way of delaying the response at the fault of the customer."
+15|Trillian|id2|20180406105523000|20180406105818000|Pan Zdzislaw|20180406105523000|Pan Zdzislaw|Zdzichu|thr|Wojtek|On which part of the operating model would you like greater clarity?
+1A|Trillian|id2|20180406105523000|20180406105818000|Pan Zdzislaw|20180406105523000|Pan Zdzislaw|Zdzichu|thr|Wojtek|On which part of the operating model would you like greater clarity?On which part of the operating model would you like 666 clarity?
+1B|GG|id3|20180406105523000|20180406105818000|Pan Zdzislaw|20180406105523000|Pan Zdzislaw|Zdzichu|thr|Wojtek|Hi there!
+1C|GG|id3|20180406105523000|20180406105818000|Pan Zdzislaw|20180406105523000|thr|Wojtek|Pan Zdzislaw|Zdzichu|Hi man!
+1E|GG|id3|20180406105523000|20180406105818000|Pan Zdzislaw|20180406105523000|thr|Wojtek|Pan Zdzislaw|Zdzichu|What's up?
+1F|GG|id3|20180406105523000|20180406105818000|Pan Zdzislaw|20180406105523000|Pan Zdzislaw|Zdzichu|thr|Wojtek|Nothing!
+20|GG|id3|20180406105523000|20180406105818000|Pan Zdzislaw|20180406105523000|thr|Wojtek|Pan Zdzislaw|Zdzichu|Well bye then!
+21|GG|id3|20180406105523000|20180406105818000|Pan Zdzislaw|20180406105523000|Pan Zdzislaw|Zdzichu|thr|Wojtek|See you!
+22|GG|id3|20180406105523000|20180406105818000|Pan Zdzislaw|20180406105523000|Pan Zdzislaw|Zdzichu|thr|Wojtek|The area around Shangri-La Hotel Singapore has been designated as a special event area for the upcoming summit between US President Donald Trump and North Korean leader Kim Jong Un.This was announced
+23|GG|id3|20180406105523000|20180406105818000|Pan Zdzislaw|20180406105523000|Pan Zdzislaw|Zdzichu|thr|Wojtek|"Following yesterday's announcement that we will be receiving our ""personal travel policies by secure e-mail this year"", I am looking at the email I just received scratching my head wondering what is secure about"
+24|GG|id3|20180406105523000|20180406105818000|Pan Zdzislaw|20180406105523000|Pan Zdzislaw|Zdzichu|thr|Wojtek|"Why does IT Support need your desk number before they can progress a helpdesk call.  Can't imagine why it is so important, especially given so many of us work from client sites or hot desks so it is often not applicable or changes on a daily basis.  Seems like a cheeky way of delaying the response at the fault of the customer."
+25|GG|id3|20180406105523000|20180406105818000|Pan Zdzislaw|20180406105523000|Pan Zdzislaw|Zdzichu|thr|Wojtek|On which part of the operating model would you like greater clarity?
+26|GG|id3|20180406105523000|20180406105818000|Pan Zdzislaw|20180406105523000|Pan Zdzislaw|Zdzichu|thr|Wojtek|aaaaaaaaaaaaaaaOn which part of the operating model would you like greater clarity?On which part of the operating model would you like 666 clarity?
+||||||||||| 

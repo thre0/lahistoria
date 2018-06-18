@@ -31,11 +31,11 @@ namespace Lahistoria
         string fs_dir;
         
         //search results list parameters
-        int ResultNo=1; //result temp id 
+        //int ResultNo=1; //result temp id 
         int ResultLocY = 1; //vertical position of result
         
         //results table
-        List<HistResult> ResultsList;
+        List<Message_Entry> ResultsList;
         
         //conversation table
         
@@ -56,8 +56,8 @@ namespace Lahistoria
 	        
 			string filePath = @"./settings.txt";
 			StreamReader sr = new StreamReader(filePath);
-			ResultsList = new List<HistResult>();
-			int Row = 0;
+			ResultsList = new List<Message_Entry>();
+			//int Row = 0;
 			
 			//setting defaults
 			while (!sr.EndOfStream)
@@ -86,7 +86,7 @@ namespace Lahistoria
 					case "autoconnect": {if(Line[1]=="true")def_autoconnect=true; else def_autoconnect=false;}
 					break;
 				}		
-			    Row++;
+			    //Row++;
 			}
 			SIDTextBox.Text=con_sid;
 			PassTextBox.Text=con_password;
@@ -135,27 +135,38 @@ namespace Lahistoria
 			
 			//DetailsBrowser.DocumentText = "<html>hello right window</html>";
 			
-			string filePath = @"./conv.txt";
+			string filePath = @"./example2.txt";
 			string[] Line = {"1","2"};
 			int startIndex;
 			StreamReader sr = new StreamReader(filePath);
-			string resultEntry;
+			int results = 0;
+			int results_limit = 100;
+			//string resultEntry;
 			int resultIndex = 0;
 			bool lineDone = false;
 			
 			ResultsList.Clear();
-			while (!sr.EndOfStream)
+			while (!sr.EndOfStream && results <= results_limit)
 			{
 				Line = sr.ReadLine().Split('|');
-				while(!lineDone && Line.Length==11)
+				/*
+				 [0] id        [6] msg time
+				 [1] conn      [7] sender id
+				 [2] session   [8] sender name
+				 [3] ses start [9] receiver id
+				 [4] ses end  [10] receiver name
+				 [5] contact  [11] msg
+				 */
+				while(!lineDone && Line.Length==12)
 				{
-					startIndex = Line[10].IndexOf(SearchBox.Text,resultIndex,StringComparison.OrdinalIgnoreCase);
+					startIndex = Line[11].IndexOf(SearchBox.Text,resultIndex,StringComparison.OrdinalIgnoreCase);
 					if(SearchBox.Text != "" && startIndex>=0)
 					{
-						resultEntry=CutLongString(Line[10],SearchBox.Text,resultIndex);
-						ResultsList.Add(new HistResult(Line[0], Line[2], resultEntry, SearchBox.Text,startIndex));
+						//resultEntry=CutLongString(Line[10],SearchBox.Text,resultIndex);
+						ResultsList.Add(new Message_Entry(Line[0], Line[6], Line[1], Line[2], Line[5], Line[7], Line[8], Line[9], Line[10], Line[11], SearchBox.Text,startIndex));
 						
 						resultIndex = startIndex + 1;
+						results++;
 					}	
 					else
 					{
@@ -165,38 +176,16 @@ namespace Lahistoria
 				lineDone = false;
 				resultIndex = 0;
 			}
-			PrintResults3();	 
+			PrintResults3();	
+			sr.Close();
 		}
-		string CutLongString(string line, string phrase,int pos)
-		{
-			string newline = "default";
-			int offset = line.IndexOf(phrase,pos,StringComparison.OrdinalIgnoreCase);
-			if (offset<=120 && line.Length<=130)
-			{
-				newline=line.Substring(0,line.Length);
-			}
-			else if(offset<=65 && line.Length>130)
-			{
-				newline=line.Substring(0,130) + "...";
-			}
-			else if(offset>65 && offset<=120 && line.Length>130 && line.Length<offset+65)
-			{
-				newline="..." + line.Substring(offset-65,line.Length-(offset-65));
-			}
-			else if(offset>65 && offset<=120 && line.Length>130)
-			{
-				newline="..." + line.Substring(offset-65,130) + "...";
-			}
-			else
-			{
-			}
-			return newline;
-		}
+
 		void RegExpSearchButtonClick(object sender, EventArgs e)
 		{
 			//SearchResults res1 = new SearchResults(ResultsBrowser);
-			
-			string filePath = @"./conv.txt";
+			int results = 0;
+			int results_limit = 100;
+			string filePath = @"./example2.txt";
 			Regex regex;
 		
 			if(RegExpSearchBox.Text=="" || RegExpSearchBox.Text=="*" || RegExpSearchBox.Text==".*"|| RegExpSearchBox.Text==".*$") 
@@ -206,190 +195,143 @@ namespace Lahistoria
 				regex = new Regex(RegExpSearchBox.Text);
 				StreamReader sr = new StreamReader(filePath);
 				ResultsList.Clear();
-				while (!sr.EndOfStream)
+				while (!sr.EndOfStream && results <= results_limit)
 				{
 					string[] Line = sr.ReadLine().Split('|');
-					Match m = regex.Match(Line[10]);
+					Match m = regex.Match(Line[11]);
 					
 			       	while (m.Success) 
 			       	{
-			       		ResultsList.Add(new HistResult(Line[0], Line[2], Line[10], m.Value, m.Index));
+			       		ResultsList.Add(new Message_Entry(Line[0], Line[6], Line[1], Line[2], Line[5], Line[7], Line[8], Line[9], Line[10], Line[11], m.Value, m.Index));
 			          	m = m.NextMatch();
+			          	results++;
 			      	}
 				}
 				PrintResults3();
+				sr.Close();
 			}
 			       	
 
 		}
-		void newtbox_Click (object sender, EventArgs e)
-		{
-		    //TextBox tbox = sender as TextBox;
-		    Panel pnl = sender as Panel;
-		    MessageBox.Show(pnl.Text);
-		}
-		void newtboxA_Click (object sender, EventArgs e)
+		void NewLabel_Click (object sender, EventArgs e)
 		{				
 		    Label tb = sender as Label;
-		    string res_id = tb.Name.Substring(9,tb.Name.Length-9);
-		    MessageBox.Show(res_id);
+		    string res_id = tb.Name.Substring(1,tb.Name.Length-1);
+		    //MessageBox.Show(res_id);
 		}
-		void newtboxB_Click (object sender, EventArgs e)
-		{				
-		    RichTextBox tb = sender as RichTextBox;
-		    string res_id = tb.Name.Substring(8,tb.Name.Length-8);
-		    MessageBox.Show(res_id);
-		}
-
-		void PrintResults()
-		{
-			ListPanel.Controls.Clear();
-			ResultNo=1;
-        	ResultLocY = 1;
-			foreach(HistResult Hresult in ResultsList)
-			{
-				TextBox newtbox = new TextBox();
-				
-				newtbox.BorderStyle = BorderStyle.None;
-				newtbox.ReadOnly = true;
-				newtbox.Multiline = true;
-				newtbox.WordWrap = true;
-				newtbox.Size = new System.Drawing.Size(270, 26);
-				newtbox.BackColor = System.Drawing.SystemColors.Info;
-				Point newpoint = new Point(7,ResultLocY);
-				newtbox.Location = newpoint;
-				newtbox.Text = Hresult.resMessage; //+ ResultNo.ToString();
-	    	    newtbox.Name = "textbox" + ResultNo.ToString();
-	    	    newtbox.Parent = ListPanel;
-	    	    
-	    	    //newtbox.Click += new EventHandler(newtbox_Click);
+		void NewtBox_Click (object sender, EventArgs e)
+		{	
 			
-	    	    ResultNo++;
-	    	    ResultLocY+=26;	
-			}
-		}
-		void PrintResults2()
-		{
-			ListPanel.Controls.Clear();
-			//ResultNo=1;
-        	ResultLocY = 1;
-			foreach(HistResult Hresult in ResultsList)
+		    RichTextBox tb = sender as RichTextBox;
+		    string id = tb.Name.Substring(1,tb.Name.Length-1);
+		    //string fullmsg = "default msg";
+		    string sessionid = "id0";
+			string filePath = @"./example2.txt";
+			string[] Line = {"1","2"};
+			StreamReader sr = new StreamReader(filePath);
+			List<Message_Entry> ConversationList = new List<Message_Entry>();
+			int locy = 0;
+
+		    foreach(Message_Entry Hresult in ResultsList)
+		    {
+		    	if(Hresult.uniqueId == id) 
+		    	{
+		    		sessionid = Hresult.sessionId;
+		    		break;
+		    	}
+		    }
+		   
+			while (!sr.EndOfStream)
 			{
-				Panel newPanel = new Panel();
-				newPanel.BorderStyle = BorderStyle.None;
-				newPanel.Size = new System.Drawing.Size(270, 41);
-				newPanel.BackColor = System.Drawing.SystemColors.Info;
-				Point newpoint = new Point(7,ResultLocY);
-				newPanel.Location = newpoint;
-				
-				newPanel.Parent = ListPanel;
-				newPanel.Click += new EventHandler(newtbox_Click);			
-				
-				Label NewLabel = new Label();
-				TextBox NewtBoxB = new TextBox();
-				
+				Line = sr.ReadLine().Split('|');
+				if(Line[2]==sessionid)
+				{
+					ConversationList.Add(new Message_Entry(Line[0], Line[6], Line[1], Line[2], Line[5], Line[7], Line[8], Line[9], Line[10], Line[11], "", -1));
+				}
+			}
+			sr.Close();
+			
+			HistoryPanel.Controls.Clear();
+		    foreach(Message_Entry msg in ConversationList)
+		    {
+			    Label NewLabel = new Label();
 				NewLabel.BorderStyle = BorderStyle.None;
-				//NewLabel.ReadOnly = true;
-				//NewLabel.Multiline = true;
-				//NewLabel.WordWrap = true;
-				NewLabel.Size = new System.Drawing.Size(270, 15);
+				NewLabel.Size = new System.Drawing.Size(1270, 15);
 				NewLabel.BackColor = System.Drawing.SystemColors.ControlDarkDark;
-				Point boxpointA = new Point(0,0);
+				Point boxpointA = new Point(0,locy);
 				NewLabel.Location = boxpointA;				
 				Font fontL = new Font("Arial", 8,FontStyle.Bold);
-				NewLabel.Font = fontL;
-				DateTime myDate = DateTime.ParseExact(Hresult.resDate, "yyyyMMddHHmmssfff", null); 
-				NewLabel.Text = myDate.ToString(); 
-	    	    NewLabel.Name = "datelabel" + Hresult.resId;
-	    	    NewLabel.Click += new EventHandler(newtboxB_Click);
-	    	    NewLabel.Parent = newPanel;
-	    	    
-				NewtBoxB.BorderStyle = BorderStyle.None;
-				NewtBoxB.ReadOnly = true;
-				NewtBoxB.Multiline = true;
-				NewtBoxB.WordWrap = true;
-				NewtBoxB.Size = new System.Drawing.Size(270, 26);
-				NewtBoxB.BackColor = System.Drawing.SystemColors.HotTrack;
-				Point boxpointB = new Point(0,15);
-				NewtBoxB.Location = boxpointB;
-				Font fontT = new Font("Times New Roman", 10);
-				NewtBoxB.Font = fontT;
-				NewtBoxB.Text = Hresult.resMessage;
-	    	    NewtBoxB.Name = "textboxB" + Hresult.resId;
-	    	    NewtBoxB.Click += new EventHandler(newtboxB_Click);
-	    	    NewtBoxB.Parent = newPanel;
-	    	    
-	    	    newPanel.Name = "panel" + Hresult.resId;
-	
-			
-	    	    //ResultNo++;
-	    	    ResultLocY+=41;	
-			}
+				NewLabel.Font = fontL;	 
+				NewLabel.Text = msg.Message; 
+		    	NewLabel.Name = "datelabel" + msg.uniqueId;
+		    	NewLabel.Parent = HistoryPanel;
+		    
+		    	locy = locy + 20;
+		    }
 		}
+
 		void PrintResults3()
 		{
 			ListPanel.Controls.Clear();
 			//ResultNo=1;
         	ResultLocY = 1;
-			foreach(HistResult Hresult in ResultsList)
+			foreach(Message_Entry Hresult in ResultsList)
 			{
 				Panel newPanel = new Panel();
 				newPanel.BorderStyle = BorderStyle.None;
-				newPanel.Size = new System.Drawing.Size(302, 77);
+				newPanel.Size = new System.Drawing.Size(299, 84);
 				newPanel.BackColor = System.Drawing.SystemColors.Info;
 				Point newpoint = new Point(7,ResultLocY);
 				newPanel.Location = newpoint;
 				
 				newPanel.Parent = ListPanel;
-				newPanel.Click += new EventHandler(newtbox_Click);			
-				
+
 				Label NewLabel = new Label();
 				RichTextBox NewtBoxB = new RichTextBox();
 				
 				NewLabel.BorderStyle = BorderStyle.None;
-				//NewLabel.ReadOnly = true;
-				//NewLabel.Multiline = true;
-				//NewLabel.WordWrap = true;
-				NewLabel.Size = new System.Drawing.Size(270, 15);
-				NewLabel.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+				NewLabel.Size = new System.Drawing.Size(299, 15);
+				NewLabel.BackColor = System.Drawing.Color.CadetBlue;
 				Point boxpointA = new Point(0,0);
 				NewLabel.Location = boxpointA;				
 				Font fontL = new Font("Arial", 8,FontStyle.Bold);
+				NewLabel.ForeColor = Color.Khaki;
 				NewLabel.Font = fontL;
-				DateTime myDate = DateTime.ParseExact(Hresult.resDate, "yyyyMMddHHmmssfff", null); 
-				NewLabel.Text = myDate.ToString(); 
-	    	    NewLabel.Name = "datelabel" + Hresult.resId;
-	    	    NewLabel.Click += new EventHandler(newtboxA_Click);
+				DateTime myDate = DateTime.ParseExact(Hresult.msgDate, "yyyyMMddHHmmssfff", null); 
+				NewLabel.Text = myDate.ToString() + "  -  " +Hresult.sender_name + " [" + Hresult.connection+ "]"; 
+	    	    NewLabel.Name = "L" + Hresult.uniqueId;
+	    	    NewLabel.Click += new EventHandler(NewLabel_Click);
+	    	    NewLabel.MouseEnter += new EventHandler(NewLabel_MouseEnter);
 	    	    NewLabel.Parent = newPanel;
 	    	    
 				NewtBoxB.BorderStyle = BorderStyle.None;
 				NewtBoxB.ReadOnly = true;
 				NewtBoxB.Multiline = true;
 				NewtBoxB.WordWrap = true;
-				NewtBoxB.Size = new System.Drawing.Size(302, 62);
-				NewtBoxB.BackColor = System.Drawing.SystemColors.HotTrack;
+				NewtBoxB.Size = new System.Drawing.Size(299, 69);
+				//NewtBoxB.BackColor = System.Drawing.Color.Khaki;
+				NewtBoxB.BackColor = System.Drawing.Color.SteelBlue;
 				Point boxpointB = new Point(0,15);
 				NewtBoxB.Location = boxpointB;
 				Font fontT = new Font("Times New Roman", 11);
 				NewtBoxB.Font = fontT;
-				NewtBoxB.Text = Hresult.resMessage;
-	    	    NewtBoxB.Name = "textboxB" + Hresult.resId;
-	    	    NewtBoxB.Click += new EventHandler(newtboxB_Click);
+				NewtBoxB.Text = Hresult.shortMessage;
+	    	    NewtBoxB.Name = "R" + Hresult.uniqueId;
+	    	    NewtBoxB.Click += new EventHandler(NewtBox_Click);
+	    	    NewtBoxB.MouseEnter += new EventHandler(NewtBox_MouseEnter);
 	    	    NewtBoxB.Parent = newPanel;
-
-	    	    string Phrase = Hresult.Phrase;
-	    	    int startIndex = NewtBoxB.Text.IndexOf(Phrase,StringComparison.OrdinalIgnoreCase);
+	    	    int startIndex = NewtBoxB.Text.IndexOf(Hresult.Phrase,Hresult.shortPosition,StringComparison.OrdinalIgnoreCase);
 	    	    if(startIndex>=0)
 	            {
-	    	    	NewtBoxB.Select(startIndex, Phrase.Length);
+	    	    	Font fontS = new Font("Times New Roman", 11,FontStyle.Bold);
+	    	    	NewtBoxB.Select(startIndex, Hresult.Phrase.Length);
 	                NewtBoxB.SelectionColor = Color.DarkSalmon;
+	                NewtBoxB.SelectionFont = fontS;
 			    } 
 	    	    
-	    	    newPanel.Name = "panel" + Hresult.resId;
+	    	    newPanel.Name = "panel" + Hresult.msgId;
 	
-			
-	    	    //ResultNo++;
-	    	    ResultLocY+=77;	
+	    	    ResultLocY+=84;	
 			}
 		}
 		

@@ -54,6 +54,16 @@ namespace Lahistoria
 		        RegExSearchButton.PerformClick();
 		    }	
 		}
+		void NewtBox_MouseEnter (object sender, EventArgs e)
+		{
+			RichTextBox tb = sender as RichTextBox;	
+			tb.Parent.Focus();
+		}
+		void NewLabel_MouseEnter (object sender, EventArgs e)
+		{
+			Label tb = sender as Label;
+			tb.Parent.Focus();
+		}
 	}
 
 }
