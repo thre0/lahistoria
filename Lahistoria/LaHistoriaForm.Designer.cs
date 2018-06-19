@@ -51,8 +51,8 @@ namespace Lahistoria
 		private System.Windows.Forms.Button DisConnectButton;
 		private System.Windows.Forms.Panel ConnPanel;
 		private System.Windows.Forms.Panel SearchPanel;
-		private System.Windows.Forms.Button button3;
-		private System.Windows.Forms.Label label15;
+		private System.Windows.Forms.Button FindMore;
+		private System.Windows.Forms.Label ResultsCount;
 		private System.Windows.Forms.Label label14;
 		private System.Windows.Forms.Button RegExSearchButton;
 		private System.Windows.Forms.Button SearchButton;
@@ -130,8 +130,8 @@ namespace Lahistoria
 			this.button4 = new System.Windows.Forms.Button();
 			this.SearchPanel = new System.Windows.Forms.Panel();
 			this.progressBar1 = new System.Windows.Forms.ProgressBar();
-			this.button3 = new System.Windows.Forms.Button();
-			this.label15 = new System.Windows.Forms.Label();
+			this.FindMore = new System.Windows.Forms.Button();
+			this.ResultsCount = new System.Windows.Forms.Label();
 			this.RegExSearchButton = new System.Windows.Forms.Button();
 			this.label14 = new System.Windows.Forms.Label();
 			this.SearchButton = new System.Windows.Forms.Button();
@@ -493,8 +493,8 @@ namespace Lahistoria
 			// SearchPanel
 			// 
 			this.SearchPanel.Controls.Add(this.progressBar1);
-			this.SearchPanel.Controls.Add(this.button3);
-			this.SearchPanel.Controls.Add(this.label15);
+			this.SearchPanel.Controls.Add(this.FindMore);
+			this.SearchPanel.Controls.Add(this.ResultsCount);
 			this.SearchPanel.Controls.Add(this.RegExSearchButton);
 			this.SearchPanel.Controls.Add(this.label14);
 			this.SearchPanel.Controls.Add(this.SearchButton);
@@ -512,22 +512,23 @@ namespace Lahistoria
 			this.progressBar1.Size = new System.Drawing.Size(137, 17);
 			this.progressBar1.TabIndex = 7;
 			// 
-			// button3
+			// FindMore
 			// 
-			this.button3.Location = new System.Drawing.Point(147, 74);
-			this.button3.Name = "button3";
-			this.button3.Size = new System.Drawing.Size(97, 23);
-			this.button3.TabIndex = 6;
-			this.button3.Text = "Go to next";
-			this.button3.UseVisualStyleBackColor = true;
+			this.FindMore.Location = new System.Drawing.Point(147, 74);
+			this.FindMore.Name = "FindMore";
+			this.FindMore.Size = new System.Drawing.Size(97, 23);
+			this.FindMore.TabIndex = 6;
+			this.FindMore.Text = "Find more";
+			this.FindMore.UseVisualStyleBackColor = true;
+			this.FindMore.Click += new System.EventHandler(this.FindMoreClick);
 			// 
-			// label15
+			// ResultsCount
 			// 
-			this.label15.Location = new System.Drawing.Point(60, 79);
-			this.label15.Name = "label15";
-			this.label15.Size = new System.Drawing.Size(53, 23);
-			this.label15.TabIndex = 5;
-			this.label15.Text = "Milions!";
+			this.ResultsCount.Location = new System.Drawing.Point(60, 79);
+			this.ResultsCount.Name = "ResultsCount";
+			this.ResultsCount.Size = new System.Drawing.Size(53, 23);
+			this.ResultsCount.TabIndex = 5;
+			this.ResultsCount.Text = "Milions!";
 			// 
 			// RegExSearchButton
 			// 
@@ -598,7 +599,7 @@ namespace Lahistoria
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.BackColor = System.Drawing.Color.Tan;
+			this.BackColor = System.Drawing.SystemColors.InactiveCaption;
 			this.ClientSize = new System.Drawing.Size(1280, 708);
 			this.Controls.Add(this.label17);
 			this.Controls.Add(this.HistoryPanel);

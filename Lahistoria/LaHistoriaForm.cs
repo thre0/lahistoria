@@ -30,10 +30,13 @@ namespace Lahistoria
         string con_sid;
         string fs_dir;
         
-        //search results list parameters
-        //int ResultNo=1; //result temp id 
-        int ResultLocY = 1; //vertical position of result
+        string path = "./example4.txt";
         
+        //search results list parameters
+        int ResultLocY = 1; //vertical position of result
+        int RowsDone = 0;
+        int SearchOption =0; // 0 - nothing; 1 - regularsearch; 2 regex search
+        bool More = false;
         //results table
         List<Message_Entry> ResultsList;
         
@@ -118,7 +121,7 @@ namespace Lahistoria
 		{
 			//label16.Text = e.End.ToShortDateString();
 		}
-		
+		//Source folder
 		void SelectFolderClick(object sender, EventArgs e)
 		{
 			DialogResult result = folderBrowserDialog1.ShowDialog();
@@ -129,23 +132,34 @@ namespace Lahistoria
 		    }
 		}
 
-
+		// Search
 		void SearchButtonClick(object sender, EventArgs e)
-		{
-			
-			//DetailsBrowser.DocumentText = "<html>hello right window</html>";
-			
-			string filePath = @"./example2.txt";
+		{			
+			string filePath = path;
 			string[] Line = {"1","2"};
 			int startIndex;
 			StreamReader sr = new StreamReader(filePath);
+			
 			int results = 0;
 			int results_limit = 100;
-			//string resultEntry;
+			if(!More) RowsDone = 0;
+			SearchOption = 1;	
 			int resultIndex = 0;
 			bool lineDone = false;
 			
+			//Button butt = sender as Button; MessageBox.Show(butt.Name);
+			
+			if(More)
+			{
+				while(results<RowsDone)
+				{
+					sr.ReadLine();
+					results++;
+				}
+				results=0;
+			}
 			ResultsList.Clear();
+
 			while (!sr.EndOfStream && results <= results_limit)
 			{
 				Line = sr.ReadLine().Split('|');
@@ -175,9 +189,12 @@ namespace Lahistoria
 				}
 				lineDone = false;
 				resultIndex = 0;
+				RowsDone++;
 			}
-			PrintResults3();	
+			PrintResults3();
+			ResultsCount.Text = results.ToString();
 			sr.Close();
+			More= false;
 		}
 
 		void RegExpSearchButtonClick(object sender, EventArgs e)
@@ -185,7 +202,9 @@ namespace Lahistoria
 			//SearchResults res1 = new SearchResults(ResultsBrowser);
 			int results = 0;
 			int results_limit = 100;
-			string filePath = @"./example2.txt";
+			RowsDone = 0;
+			SearchOption = 2;
+			string filePath = path;
 			Regex regex;
 		
 			if(RegExpSearchBox.Text=="" || RegExpSearchBox.Text=="*" || RegExpSearchBox.Text==".*"|| RegExpSearchBox.Text==".*$") 
@@ -206,6 +225,7 @@ namespace Lahistoria
 			          	m = m.NextMatch();
 			          	results++;
 			      	}
+			       	RowsDone++;
 				}
 				PrintResults3();
 				sr.Close();
@@ -226,7 +246,7 @@ namespace Lahistoria
 		    string id = tb.Name.Substring(1,tb.Name.Length-1);
 		    //string fullmsg = "default msg";
 		    string sessionid = "id0";
-			string filePath = @"./example2.txt";
+			string filePath = path;
 			string[] Line = {"1","2"};
 			StreamReader sr = new StreamReader(filePath);
 			List<Message_Entry> ConversationList = new List<Message_Entry>();
@@ -333,6 +353,19 @@ namespace Lahistoria
 	
 	    	    ResultLocY+=84;	
 			}
+		}
+		void FindMoreClick(object sender, EventArgs e)
+		{
+		    if (SearchOption==1)
+		    {
+		    	More= true;
+		        SearchButton.PerformClick();
+		    }
+			if (SearchOption==2)
+		    {
+				More= true;
+		        RegExSearchButton.PerformClick();
+		    }		    
 		}
 		
 	}

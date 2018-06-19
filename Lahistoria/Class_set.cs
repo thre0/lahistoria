@@ -55,15 +55,12 @@ namespace Lahistoria
 				{
 					uniqueId = DateTime.Now.ToString("yyyyMMddHHmmssfff") + id + position;
 					shortMessage = CutLongString(msg,phrase,position);
-					shortPosition = shortMessage.IndexOf(phrase,position-refPosition,StringComparison.OrdinalIgnoreCase);	
+					shortPosition = shortMessage.IndexOf(phrase,refPosition,StringComparison.OrdinalIgnoreCase);	
 				}
 				else
 				{
 					uniqueId = "conv" + DateTime.Now.ToString("yyyyMMddHHmmssfff") + id;
-				}
-			
-
-				
+				}				
 			}
 			private string CutLongString(string line, string phrase,int pos)
 			{
@@ -72,22 +69,22 @@ namespace Lahistoria
 				if (line.Length<=150)
 				{
 					newline=line.Substring(0,line.Length);
-					refPosition = 0;
+					refPosition = offset;
 				}
 				else if(offset<=75 && line.Length>150)
 				{
 					newline=line.Substring(0,150) + "...";
-					refPosition = 0;
+					refPosition = offset;
 				}
 				else if(offset>75 && line.Length<offset+75)
 				{
 					newline="..." + line.Substring(line.Length-150,150);
-					refPosition = (offset-75-3);
+					refPosition = (offset+153-line.Length);
 				}				
 				else
 				{
 					newline="..." + line.Substring(offset-75,150) + "...";
-					refPosition = (offset-75-3);
+					refPosition = 78;
 				}					
 				return newline;
 			}
