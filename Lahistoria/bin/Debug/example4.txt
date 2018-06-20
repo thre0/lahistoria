@@ -5,3 +5,17 @@
 5|SKYPE|id1|20180406105523000|20180406105818000|Pan Zdzislaw|20180406105523000|thr|Wojtek|Pan Zdzislaw|Zdzichu|Well bye then!
 6|SKYPE|id1|20180406105523000|20180406105818000|Pan Zdzislaw|20180406105523000|Pan Zdzislaw|Zdzichu|thr|Wojtek|See you!
 7|SKYPE|id1|20180406105523000|20180406105818000|Pan Zdzislaw|20180406105523000|Pan Zdzislaw|Zdzichu|thr|Wojtek|The area around Shangri-La Hotel Singapore has been designated as a special event area for the upcoming summit between US President Donald Trump and North Korean leader Kim Jong Un.This was announced1111111111111111111166666666666666666666666666666666666666666666666111111111111111111111111111111111111111111111
+8|SKYPE|id2|20180407105523000|20180406105818000|Pan Zdzislaw|20180407105523000|Pan_Zdzislaw|Zdzichu|thr|Wojtek|Hi there!
+9|SKYPE|id2|20180407105523000|20180406105818000|Pan Zdzislaw|20180407105523000|thr|Wojtek|Pan Zdzislaw|Zdzichu|Hi man!
+10|SKYPE|id2|20180407105523000|20180406105818000|Pan Zdzislaw|20180407105523000|thr|Wojtek|Pan Zdzislaw|Zdzichu|What's up?
+11|SKYPE|id2|20180407105523000|20180406105818000|Pan Zdzislaw|20180407105523000|Pan_Zdzislaw|Zdzichu|thr|Wojtek|Nothing!
+12|SKYPE|id2|20180407105523000|20180406105818000|Pan Zdzislaw|20180407105523000|thr|Wojtek|Pan Zdzislaw|Zdzichu|Well bye then!
+13|SKYPE|id2|20180407105523000|20180406105818000|Pan Zdzislaw|20180407105523000|Pan Zdzislaw|Zdzichu|thr|Wojtek|See you!
+14|SKYPE|id2|20180407105523000|20180406105818000|Pan Zdzislaw|20180407105523000|Pan Zdzislaw|Zdzichu|thr|Wojtek|The area around Shangri-La Hotel Singapore has been designated as a special event area for the upcoming summit between US President Donald Trump and North Korean leader Kim Jong Un.This was announced1111111111111111111166666666666666666666666666666666666666666666666111111111111111111111111111111111111111111111
+15|SKYPE|id2|20180407105523000|20180406105818000|Pan Zdzislaw|20180407105523000|Pan_Zdzislaw|Zdzichu|thr|Wojtek|Hi there!
+16|SKYPE|id2|20180407105523000|20180406105818000|Pan Zdzislaw|20180407105523000|thr|Wojtek|Pan Zdzislaw|Zdzichu|Hi man!
+17|SKYPE|id2|20180407105523000|20180406105818000|Pan Zdzislaw|20180407105523000|thr|Wojtek|Pan Zdzislaw|Zdzichu|What's up?
+18|SKYPE|id2|20180407105523000|20180406105818000|Pan Zdzislaw|20180407105523000|Pan_Zdzislaw|Zdzichu|thr|Wojtek|Nothing!
+19|SKYPE|id2|20180407105523000|20180406105818000|Pan Zdzislaw|20180407105523000|thr|Wojtek|Pan Zdzislaw|Zdzichu|Well bye then!
+20|SKYPE|id2|20180407105523000|20180406105818000|Pan Zdzislaw|20180407105523000|Pan Zdzislaw|Zdzichu|thr|Wojtek|See you!
+21|SKYPE|id2|20180407105523000|20180406105818000|Pan Zdzislaw|20180407105523000|Pan Zdzislaw|Zdzichu|thr|Wojtek|The area around Shangri-La Hotel Singapore has been designated as a special event area for the upcoming summit between US President Donald Trump and North Korean leader Kim Jong Un.This was announced1111111111111111111166666666666666666666666666666666666666666666666111111111111111111111111111111111111111111111

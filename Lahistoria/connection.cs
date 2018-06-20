@@ -52,7 +52,7 @@ namespace Lahistoria
 		}
 		void Button4Click(object sender, EventArgs e)
 		{
-		    DataSet dataSet = new DataSet();
+		    /*DataSet dataSet = new DataSet();
 		    OracleDataAdapter adapter = new OracleDataAdapter("select * from kid", ora_con);
 		    adapter.Fill(dataSet);
 			string[] arrvalues = new string[dataSet.Tables[0].Rows.Count];
@@ -64,7 +64,11 @@ namespace Lahistoria
 			    arrvalues[loopcounter] = dataSet.Tables[0].Rows[loopcounter]["HOUSE"].ToString();
 			}
 		    for(int i=0;i<arrvalues.Length;i++)
-		    MessageBox.Show(arrvalues[i]);	
+		    MessageBox.Show(arrvalues[i]);*/
+		    //foreach(Control c in SearchPanel.Controls)
+		    //string f = "FindMore";
+		    //SearchPanel.Controls.RemoveByKey(f)	;
+		    //SearchPanel.Controls[f].Dispose();
 		}
 	}
 }

@@ -64,7 +64,6 @@ namespace Lahistoria
 		private System.Windows.Forms.Button button4;
 		private System.Windows.Forms.Panel FSpanel;
 		private System.Windows.Forms.NotifyIcon notifyIcon1;
-		private System.Windows.Forms.TextBox textBox1;
 
 		
 		/// <summary>
@@ -97,7 +96,6 @@ namespace Lahistoria
 			this.baseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.ListPanel = new System.Windows.Forms.Panel();
-			this.textBox1 = new System.Windows.Forms.TextBox();
 			this.label2 = new System.Windows.Forms.Label();
 			this.label3 = new System.Windows.Forms.Label();
 			this.label4 = new System.Windows.Forms.Label();
@@ -141,7 +139,6 @@ namespace Lahistoria
 			this.label17 = new System.Windows.Forms.Label();
 			this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
 			this.menuStrip1.SuspendLayout();
-			this.ListPanel.SuspendLayout();
 			this.FSpanel.SuspendLayout();
 			this.DBpanel.SuspendLayout();
 			this.ConnPanel.SuspendLayout();
@@ -199,19 +196,10 @@ namespace Lahistoria
 			// 
 			this.ListPanel.AutoScroll = true;
 			this.ListPanel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-			this.ListPanel.Controls.Add(this.textBox1);
 			this.ListPanel.Location = new System.Drawing.Point(264, 36);
 			this.ListPanel.Name = "ListPanel";
 			this.ListPanel.Size = new System.Drawing.Size(328, 669);
 			this.ListPanel.TabIndex = 2;
-			// 
-			// textBox1
-			// 
-			this.textBox1.Location = new System.Drawing.Point(3, 638);
-			this.textBox1.Name = "textBox1";
-			this.textBox1.Size = new System.Drawing.Size(100, 20);
-			this.textBox1.TabIndex = 2;
-			this.textBox1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.TextBox1MouseClick);
 			// 
 			// label2
 			// 
@@ -526,7 +514,7 @@ namespace Lahistoria
 			// 
 			this.ResultsCount.Location = new System.Drawing.Point(60, 79);
 			this.ResultsCount.Name = "ResultsCount";
-			this.ResultsCount.Size = new System.Drawing.Size(53, 23);
+			this.ResultsCount.Size = new System.Drawing.Size(80, 23);
 			this.ResultsCount.TabIndex = 5;
 			this.ResultsCount.Text = "Milions!";
 			// 
@@ -576,6 +564,7 @@ namespace Lahistoria
 			// 
 			// HistoryPanel
 			// 
+			this.HistoryPanel.AutoScroll = true;
 			this.HistoryPanel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
 			this.HistoryPanel.Location = new System.Drawing.Point(598, 34);
 			this.HistoryPanel.Name = "HistoryPanel";
@@ -616,8 +605,6 @@ namespace Lahistoria
 			this.Text = "Lahistoria";
 			this.menuStrip1.ResumeLayout(false);
 			this.menuStrip1.PerformLayout();
-			this.ListPanel.ResumeLayout(false);
-			this.ListPanel.PerformLayout();
 			this.FSpanel.ResumeLayout(false);
 			this.FSpanel.PerformLayout();
 			this.DBpanel.ResumeLayout(false);
