@@ -64,6 +64,24 @@ namespace Lahistoria
 			Label tb = sender as Label;
 			tb.Parent.Focus();
 		}
+		void RTBmsg_MouseEnter (object sender, EventArgs e)
+		{
+			RichTextBox tb = sender as RichTextBox;
+			tb.Parent.Focus();
+		}
+		void ShowAllButtClick(object sender, EventArgs e)
+		{
+			if(LastRTBClicked!="")
+			{
+				//this.ListPanel.Controls[LastRTBClicked].cli
+			}
+		}
+		void RTBmsg_DoubleClick (object sender, EventArgs e)
+		{
+			ShowAllButt.PerformClick();
+		}
+		
+		
 	}
 
 }

@@ -26,7 +26,6 @@ namespace Lahistoria
 		private System.Windows.Forms.Label label4;
 		private System.Windows.Forms.CheckBox FScheckBox;
 		private System.Windows.Forms.CheckBox DBcheckBox;
-
 		private System.Windows.Forms.Panel DBpanel;
 		private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
 		private System.Windows.Forms.Button SelectSourceFolder;
@@ -59,11 +58,13 @@ namespace Lahistoria
 		private System.Windows.Forms.TextBox RegExpSearchBox;
 		private System.Windows.Forms.TextBox SearchBox;
 		private System.Windows.Forms.Panel HistoryPanel;
-		private System.Windows.Forms.ProgressBar progressBar1;
-		private System.Windows.Forms.Label label17;
 		private System.Windows.Forms.Button button4;
 		private System.Windows.Forms.Panel FSpanel;
 		private System.Windows.Forms.NotifyIcon notifyIcon1;
+		private System.Windows.Forms.Button ShowAllButt;
+		private System.Windows.Forms.TextBox LineSpreadTB;
+		private System.Windows.Forms.Label LineSpread;
+		private System.Windows.Forms.Label lineLabel;
 
 		
 		/// <summary>
@@ -85,7 +86,6 @@ namespace Lahistoria
 		/// Do not change the method contents inside the source code editor. The Forms designer might
 		/// not be able to load this method if it was changed manually.
 		/// </summary>
-		/// 
 		private void InitializeComponent()
 		{
 			this.components = new System.ComponentModel.Container();
@@ -127,7 +127,9 @@ namespace Lahistoria
 			this.ConnPanel = new System.Windows.Forms.Panel();
 			this.button4 = new System.Windows.Forms.Button();
 			this.SearchPanel = new System.Windows.Forms.Panel();
-			this.progressBar1 = new System.Windows.Forms.ProgressBar();
+			this.ShowAllButt = new System.Windows.Forms.Button();
+			this.LineSpreadTB = new System.Windows.Forms.TextBox();
+			this.LineSpread = new System.Windows.Forms.Label();
 			this.FindMore = new System.Windows.Forms.Button();
 			this.ResultsCount = new System.Windows.Forms.Label();
 			this.RegExSearchButton = new System.Windows.Forms.Button();
@@ -136,8 +138,8 @@ namespace Lahistoria
 			this.RegExpSearchBox = new System.Windows.Forms.TextBox();
 			this.SearchBox = new System.Windows.Forms.TextBox();
 			this.HistoryPanel = new System.Windows.Forms.Panel();
-			this.label17 = new System.Windows.Forms.Label();
 			this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
+			this.lineLabel = new System.Windows.Forms.Label();
 			this.menuStrip1.SuspendLayout();
 			this.FSpanel.SuspendLayout();
 			this.DBpanel.SuspendLayout();
@@ -297,7 +299,7 @@ namespace Lahistoria
 			this.DBpanel.Controls.Add(this.label6);
 			this.DBpanel.Location = new System.Drawing.Point(9, 244);
 			this.DBpanel.Name = "DBpanel";
-			this.DBpanel.Size = new System.Drawing.Size(240, 140);
+			this.DBpanel.Size = new System.Drawing.Size(240, 138);
 			this.DBpanel.TabIndex = 9;
 			// 
 			// SIDTextBox
@@ -411,7 +413,7 @@ namespace Lahistoria
 			// 
 			// ConnectButton
 			// 
-			this.ConnectButton.Location = new System.Drawing.Point(157, 112);
+			this.ConnectButton.Location = new System.Drawing.Point(159, 112);
 			this.ConnectButton.Name = "ConnectButton";
 			this.ConnectButton.Size = new System.Drawing.Size(87, 23);
 			this.ConnectButton.TabIndex = 12;
@@ -439,7 +441,7 @@ namespace Lahistoria
 			// DisConnectButton
 			// 
 			this.DisConnectButton.Enabled = false;
-			this.DisConnectButton.Location = new System.Drawing.Point(157, 83);
+			this.DisConnectButton.Location = new System.Drawing.Point(159, 83);
 			this.DisConnectButton.Name = "DisConnectButton";
 			this.DisConnectButton.Size = new System.Drawing.Size(87, 23);
 			this.DisConnectButton.TabIndex = 15;
@@ -463,9 +465,9 @@ namespace Lahistoria
 			this.ConnPanel.Controls.Add(this.FSpanel);
 			this.ConnPanel.Controls.Add(this.label12);
 			this.ConnPanel.Controls.Add(this.DBpanel);
-			this.ConnPanel.Location = new System.Drawing.Point(3, 316);
+			this.ConnPanel.Location = new System.Drawing.Point(3, 323);
 			this.ConnPanel.Name = "ConnPanel";
-			this.ConnPanel.Size = new System.Drawing.Size(249, 389);
+			this.ConnPanel.Size = new System.Drawing.Size(249, 382);
 			this.ConnPanel.TabIndex = 16;
 			// 
 			// button4
@@ -480,7 +482,9 @@ namespace Lahistoria
 			// 
 			// SearchPanel
 			// 
-			this.SearchPanel.Controls.Add(this.progressBar1);
+			this.SearchPanel.Controls.Add(this.ShowAllButt);
+			this.SearchPanel.Controls.Add(this.LineSpreadTB);
+			this.SearchPanel.Controls.Add(this.LineSpread);
 			this.SearchPanel.Controls.Add(this.FindMore);
 			this.SearchPanel.Controls.Add(this.ResultsCount);
 			this.SearchPanel.Controls.Add(this.RegExSearchButton);
@@ -490,19 +494,40 @@ namespace Lahistoria
 			this.SearchPanel.Controls.Add(this.SearchBox);
 			this.SearchPanel.Location = new System.Drawing.Point(3, 208);
 			this.SearchPanel.Name = "SearchPanel";
-			this.SearchPanel.Size = new System.Drawing.Size(249, 100);
+			this.SearchPanel.Size = new System.Drawing.Size(249, 109);
 			this.SearchPanel.TabIndex = 17;
 			// 
-			// progressBar1
+			// ShowAllButt
 			// 
-			this.progressBar1.Location = new System.Drawing.Point(3, 57);
-			this.progressBar1.Name = "progressBar1";
-			this.progressBar1.Size = new System.Drawing.Size(137, 17);
-			this.progressBar1.TabIndex = 7;
+			this.ShowAllButt.Location = new System.Drawing.Point(147, 56);
+			this.ShowAllButt.Name = "ShowAllButt";
+			this.ShowAllButt.Size = new System.Drawing.Size(97, 23);
+			this.ShowAllButt.TabIndex = 9;
+			this.ShowAllButt.Text = "Show All";
+			this.ShowAllButt.UseVisualStyleBackColor = true;
+			this.ShowAllButt.Click += new System.EventHandler(this.ShowAllButtClick);
+			// 
+			// LineSpreadTB
+			// 
+			this.LineSpreadTB.Location = new System.Drawing.Point(99, 58);
+			this.LineSpreadTB.MaxLength = 2;
+			this.LineSpreadTB.Name = "LineSpreadTB";
+			this.LineSpreadTB.Size = new System.Drawing.Size(41, 20);
+			this.LineSpreadTB.TabIndex = 8;
+			this.LineSpreadTB.Text = "4";
+			this.LineSpreadTB.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+			// 
+			// LineSpread
+			// 
+			this.LineSpread.Location = new System.Drawing.Point(4, 58);
+			this.LineSpread.Name = "LineSpread";
+			this.LineSpread.Size = new System.Drawing.Size(100, 21);
+			this.LineSpread.TabIndex = 7;
+			this.LineSpread.Text = "LineSpread (x2):";
 			// 
 			// FindMore
 			// 
-			this.FindMore.Location = new System.Drawing.Point(147, 74);
+			this.FindMore.Location = new System.Drawing.Point(147, 83);
 			this.FindMore.Name = "FindMore";
 			this.FindMore.Size = new System.Drawing.Size(97, 23);
 			this.FindMore.TabIndex = 6;
@@ -512,7 +537,7 @@ namespace Lahistoria
 			// 
 			// ResultsCount
 			// 
-			this.ResultsCount.Location = new System.Drawing.Point(60, 79);
+			this.ResultsCount.Location = new System.Drawing.Point(60, 86);
 			this.ResultsCount.Name = "ResultsCount";
 			this.ResultsCount.Size = new System.Drawing.Size(80, 23);
 			this.ResultsCount.TabIndex = 5;
@@ -520,7 +545,7 @@ namespace Lahistoria
 			// 
 			// RegExSearchButton
 			// 
-			this.RegExSearchButton.Location = new System.Drawing.Point(147, 31);
+			this.RegExSearchButton.Location = new System.Drawing.Point(147, 29);
 			this.RegExSearchButton.Name = "RegExSearchButton";
 			this.RegExSearchButton.Size = new System.Drawing.Size(97, 23);
 			this.RegExSearchButton.TabIndex = 3;
@@ -530,7 +555,7 @@ namespace Lahistoria
 			// 
 			// label14
 			// 
-			this.label14.Location = new System.Drawing.Point(3, 79);
+			this.label14.Location = new System.Drawing.Point(3, 86);
 			this.label14.Name = "label14";
 			this.label14.Size = new System.Drawing.Size(53, 23);
 			this.label14.TabIndex = 4;
@@ -538,7 +563,7 @@ namespace Lahistoria
 			// 
 			// SearchButton
 			// 
-			this.SearchButton.Location = new System.Drawing.Point(147, 4);
+			this.SearchButton.Location = new System.Drawing.Point(147, 2);
 			this.SearchButton.Name = "SearchButton";
 			this.SearchButton.Size = new System.Drawing.Size(97, 23);
 			this.SearchButton.TabIndex = 2;
@@ -571,18 +596,18 @@ namespace Lahistoria
 			this.HistoryPanel.Size = new System.Drawing.Size(670, 671);
 			this.HistoryPanel.TabIndex = 18;
 			// 
-			// label17
-			// 
-			this.label17.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-			this.label17.Location = new System.Drawing.Point(3, 308);
-			this.label17.Name = "label17";
-			this.label17.Size = new System.Drawing.Size(249, 2);
-			this.label17.TabIndex = 1;
-			// 
 			// notifyIcon1
 			// 
 			this.notifyIcon1.Text = "notifyIcon1";
 			this.notifyIcon1.Visible = true;
+			// 
+			// lineLabel
+			// 
+			this.lineLabel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+			this.lineLabel.Location = new System.Drawing.Point(3, 318);
+			this.lineLabel.Name = "lineLabel";
+			this.lineLabel.Size = new System.Drawing.Size(249, 2);
+			this.lineLabel.TabIndex = 0;
 			// 
 			// MainForm
 			// 
@@ -590,7 +615,7 @@ namespace Lahistoria
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.BackColor = System.Drawing.SystemColors.InactiveCaption;
 			this.ClientSize = new System.Drawing.Size(1280, 708);
-			this.Controls.Add(this.label17);
+			this.Controls.Add(this.lineLabel);
 			this.Controls.Add(this.HistoryPanel);
 			this.Controls.Add(this.SearchPanel);
 			this.Controls.Add(this.ConnPanel);
@@ -616,6 +641,8 @@ namespace Lahistoria
 			this.PerformLayout();
 
 		}
+
+		
 		
 	}
 }

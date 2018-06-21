@@ -43,6 +43,7 @@ namespace Lahistoria
         List<Message_Entry> ResultsList;
         
         //conversation table
+        string LastRTBClicked = "";
         
 		public MainForm()
 		{
@@ -143,6 +144,8 @@ namespace Lahistoria
 			StreamReader sr = new StreamReader(filePath);
 			
 			int results = 0;
+			int LineInSession = 0;
+			string CurSession = "";
 			
 			if(!More) 
 			{
@@ -191,13 +194,23 @@ namespace Lahistoria
 				 [4] ses end  [10] receiver name
 				 [5] contact  [11] msg
 				 */
+				
+				if(CurSession!=Line[2]&& Line.Length==12)
+				{
+					CurSession = Line[2];
+					LineInSession = 1;
+				}
+				else if( Line.Length==12)
+				{
+					LineInSession++;
+				}
 				while(!lineDone && Line.Length==12)
 				{
-					startIndex = Line[11].IndexOf(SearchBox.Text,resultIndex,StringComparison.OrdinalIgnoreCase);
+					startIndex = Line[11].IndexOf(SearchBox.Text,resultIndex,StringComparison.OrdinalIgnoreCase);						
 					if(SearchBox.Text != "" && startIndex>=0)
 					{
 						//resultEntry=CutLongString(Line[10],SearchBox.Text,resultIndex);
-						ResultsList.Add(new Message_Entry(Line[0], Line[6], Line[1], Line[2], Line[5], Line[7], Line[8], Line[9], Line[10], Line[11], SearchBox.Text,startIndex,1));
+						ResultsList.Add(new Message_Entry(Line[0], Line[6], Line[1], Line[2], Line[5], Line[7], Line[8], Line[9], Line[10], Line[11], SearchBox.Text,startIndex,LineInSession));
 						
 						resultIndex = startIndex + 1;
 						results++;
@@ -285,22 +298,25 @@ namespace Lahistoria
 		    string res_id = tb.Name.Substring(1,tb.Name.Length-1);
 		    //MessageBox.Show(res_id);
 		}
-		void NewtBox_Click2 (object sender, EventArgs e, string uid)
-		{				
-		    //MessageBox.Show(uid);
-		}
-		void NewtBox_Click (object sender, EventArgs e)
+		//Dispay conversation
+		void NewtBox_Click2 (object sender, EventArgs e, string phrase, int lineinsession, bool ExpandConv)
 		{	
 			//MessageBox.Show(uid);
 		    RichTextBox tb = sender as RichTextBox;
+		    LastRTBClicked = tb.Name;
 		    string clickedRTBid = tb.Name.Substring(1,tb.Name.Length-1);
 		    //string fullmsg = "default msg";
+		    
+		    int msgHeight = 66;
 		    string FocusLine;
 		    string sessionid = "id0";
 			string filePath = path;
 			string[] Line = {"1","2"};
 			StreamReader sr = new StreamReader(filePath);
 			List<Message_Entry> ConversationList = new List<Message_Entry>();
+			int SessionLineCounter = 1;
+			int lineSpread = int.Parse(LineSpreadTB.Text);
+			int startIndex=0;
 			int locy = 0;
 
 		    foreach(Message_Entry Hresult in ResultsList)
@@ -318,35 +334,62 @@ namespace Lahistoria
 				Line = sr.ReadLine().Split('|');
 				if(Line[2]==sessionid)
 				{
-					//FocusLine=clickedRTBid.Substring(clickedRTBid.IndexOf("L")+1,clickedRTBid.Length-clickedRTBid.IndexOf("L")-1);
-					if(Line[0]==FocusLine)
+					if(SessionLineCounter+lineSpread<lineinsession && ExpandConv)
+					{
+						ConversationList.Add(new Message_Entry(Line[0], Line[6], Line[1], Line[2], Line[5], Line[7], Line[8], Line[9], Line[10], Line[11], "", -1,0));
+					}
+					else if(SessionLineCounter-lineSpread>lineinsession && ExpandConv)
+					{
+						ConversationList.Add(new Message_Entry(Line[0], Line[6], Line[1], Line[2], Line[5], Line[7], Line[8], Line[9], Line[10], Line[11], "", -1,0));
+					}
+					else if(Line[0]==FocusLine)
 						ConversationList.Add(new Message_Entry(Line[0], Line[6], Line[1], Line[2], Line[5], Line[7], Line[8], Line[9], Line[10], Line[11], "", -1,2));
 					else
 						ConversationList.Add(new Message_Entry(Line[0], Line[6], Line[1], Line[2], Line[5], Line[7], Line[8], Line[9], Line[10], Line[11], "", -1,1));
+					SessionLineCounter++;
 				}
 			}
 			sr.Close();
-			
+			ExpandConv = false;
 			HistoryPanel.Controls.Clear();
 		    foreach(Message_Entry msg in ConversationList)
 		    {
 			    RichTextBox RTBmsg = new RichTextBox();
+			    Point pointA = new Point(0,locy);
+			    Font fontL = new Font("Arial", 8,FontStyle.Bold);
+			    Font fontS = new Font("Times New Roman", 11,FontStyle.Bold);
 				RTBmsg.BorderStyle = BorderStyle.None;
-				RTBmsg.Size = new System.Drawing.Size(1270, 65);
+				RTBmsg.Size = new System.Drawing.Size(1270, msgHeight-1);
 				RTBmsg.BackColor = System.Drawing.Color.Beige;
-				RTBmsg.ReadOnly = true;
-				Point pointA = new Point(0,locy);
+				RTBmsg.ReadOnly = true;				
 				RTBmsg.Location = pointA;				
-				Font fontL = new Font("Arial", 8,FontStyle.Bold);
 				RTBmsg.Font = fontL;	 
 				RTBmsg.Text = msg.Message; 
-		    	RTBmsg.Name = "RTBmsg" + msg.uniqueId;
+		    	RTBmsg.Name = msg.Show + "RTBmsg" + msg.uniqueId;
 		    	RTBmsg.Parent = HistoryPanel;
-		    	//if(msg.msgId==msg.uniqueId.Substring(msg.uniqueId.Length-msg.msgId.Length,msg.msgId.Length)) RTBmsg.Focus();
-		    	locy = locy + 66;
-		    	MessageBox.Show(this.HistoryPanel.Controls["RTBmsg"+msg.uniqueId].Name+"  "+clickedRTBid+ "  " + msg.msgId + "  " +msg.uniqueId );
+		    	RTBmsg.MouseEnter += new EventHandler(RTBmsg_MouseEnter);
+		    	RTBmsg.DoubleClick+= new EventHandler(RTBmsg_DoubleClick);
+
+	    	    startIndex = msg.Message.IndexOf(phrase,StringComparison.OrdinalIgnoreCase);
+	    	    if(startIndex>=0)
+	            {	    	    	
+	    	    	RTBmsg.Select(startIndex, phrase.Length);
+	                RTBmsg.SelectionColor = Color.Salmon;
+	                RTBmsg.SelectionFont = fontS;
+			    } 
+		    	
+		    	locy = locy + msgHeight;
+		    	//MessageBox.Show(this.HistoryPanel.Controls["RTBmsg"+msg.uniqueId].Name+"  "+clickedRTBid+ "  " + msg.msgId + "  " +msg.uniqueId );
 		    }
-		    
+		    foreach(Control ctl in HistoryPanel.Controls)
+		    {
+		    	if(ctl.Name.Substring(0,1)=="0")
+		    	{
+		    		ctl.BackColor=Color.DarkKhaki;
+		    		//ctl.Visible = false;
+		    	}
+		    	if(ctl.Name.Substring(0,1)=="2")ctl.Focus();
+		    }
 		    //this.HistoryPanel.Controls["RTBmsg"+id.ToString()].Focus();
 		}
 		void PrintResults3()
@@ -396,7 +439,8 @@ namespace Lahistoria
 				NewtBoxB.Font = fontT;
 				NewtBoxB.Text = Hresult.shortMessage;
 	    	    NewtBoxB.Name = "R" + Hresult.uniqueId;
-	    	    NewtBoxB.Click += new EventHandler(NewtBox_Click);
+	    	    //NewtBoxB.Click += new EventHandler(NewtBox_Click);
+	    	    NewtBoxB.Click+=delegate(object sender2, EventArgs e2){NewtBox_Click2(sender2, e2, Hresult.Phrase,Hresult.LineInSession,false);};
 	    	    NewtBoxB.MouseEnter += new EventHandler(NewtBox_MouseEnter);
 	    	    NewtBoxB.Parent = newPanel;
 	    	    int startIndex = NewtBoxB.Text.IndexOf(Hresult.Phrase,Hresult.shortPosition,StringComparison.OrdinalIgnoreCase);

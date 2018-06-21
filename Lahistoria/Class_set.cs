@@ -32,11 +32,12 @@ namespace Lahistoria
 			public string Phrase;
 			public int Position;
 			public int shortPosition;
+			public int LineInSession;
 			private int refPosition;
 			
 			public int Show; //0 - hide, 1 - show, 2 - focus
 			
-			public Message_Entry(string id, string date, string conn,string session, string contact,string senderid,string sendern, string receiverid, string receivern, string msg, string phrase,int position, int show)
+			public Message_Entry(string id, string date, string conn,string session, string contact,string senderid,string sendern, string receiverid, string receivern, string msg, string phrase,int position, int lineParam)
 			{		
 				uniqueId = DateTime.Now.ToString("yyyyMMddHHmmssfff") + "P" + position + "L" + id;
 				msgId = id;
@@ -53,18 +54,18 @@ namespace Lahistoria
 				Phrase = phrase;
 				Position = position;
 				
-				Show = show;
-				
 				
 				if (position >= 0)
 				{
 					uniqueId = DateTime.Now.ToString("yyyyMMddHHmmssfff") + "P" + position + "L" + id;
 					shortMessage = CutLongString(msg,phrase,position);
-					shortPosition = shortMessage.IndexOf(phrase,refPosition,StringComparison.OrdinalIgnoreCase);	
+					shortPosition = shortMessage.IndexOf(phrase,refPosition,StringComparison.OrdinalIgnoreCase);
+					LineInSession = lineParam;
 				}
 				else
 				{
 					uniqueId = "conv" + DateTime.Now.ToString("yyyyMMddHHmmssfff") + "L" + id;
+					Show = lineParam;
 				}				
 			}
 			private string CutLongString(string line, string phrase,int pos)
