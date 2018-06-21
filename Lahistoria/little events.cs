@@ -73,14 +73,17 @@ namespace Lahistoria
 		{
 			if(LastRTBClicked!="")
 			{
-				//this.ListPanel.Controls[LastRTBClicked].cli
+				ShowConversation (LastPhrase, LastLineSession, true);
 			}
 		}
 		void RTBmsg_DoubleClick (object sender, EventArgs e)
 		{
 			ShowAllButt.PerformClick();
 		}
-		
+		//void RTBmsg_ContentsResized (object sender, ContentsResizedEventArgs e)
+		//{
+			//
+		//}
 		
 	}
 
