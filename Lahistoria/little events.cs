@@ -54,7 +54,7 @@ namespace Lahistoria
 		        RegExSearchButton.PerformClick();
 		    }	
 		}
-		void NewtBox_MouseEnter (object sender, EventArgs e)
+		void NewtBox_MouseHover (object sender, EventArgs e)
 		{
 			RichTextBox tb = sender as RichTextBox;	
 			tb.Parent.Focus();
@@ -80,11 +80,24 @@ namespace Lahistoria
 		{
 			ShowAllButt.PerformClick();
 		}
-		//void RTBmsg_ContentsResized (object sender, ContentsResizedEventArgs e)
-		//{
-			//
-		//}
-		
+   /*     private void RTBmsg_MouseUp(object sender, MouseEventArgs e)
+        {
+            if (e.Button == System.Windows.Forms.MouseButtons.Right)
+            {   //click event
+                //MessageBox.Show("you got it!");
+                ContextMenu contextMenu = new System.Windows.Forms.ContextMenu();
+                MenuItem menuItem = new MenuItem("Copy");
+                menuItem.Click += new EventHandler(CopyAction);
+                contextMenu.MenuItems.Add(menuItem);
+                this.ContextMenu = contextMenu;
+            }
+        }
+        void CopyAction(object sender, EventArgs e)
+        {
+            Graphics objGraphics;
+            Clipboard.SetData(DataFormats.Rtf, richTextBox1.SelectedRtf);
+            Clipboard.Clear();
+        }*/
 	}
 
 }

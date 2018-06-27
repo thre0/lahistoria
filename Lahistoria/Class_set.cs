@@ -16,7 +16,7 @@ namespace Lahistoria
 		{
 			public string uniqueId;
 			public string msgId;
-			public string msgDate;
+			public DateTime msgDate;
 			public string sessionId;
 			public string connection;
 			public string contactId;
@@ -41,7 +41,7 @@ namespace Lahistoria
 			{		
 				uniqueId = DateTime.Now.ToString("yyyyMMddHHmmssfff") + "P" + position + "L" + id;
 				msgId = id;
-				msgDate = date;
+				msgDate = DateTime.ParseExact(date, "yyyyMMddHHmmssfff", null);;
 				sessionId = session;
 				connection = conn;
 				contactId = contact;

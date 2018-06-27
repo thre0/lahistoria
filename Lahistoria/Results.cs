@@ -27,7 +27,7 @@ namespace Lahistoria
 				Label NewLabel = new Label();
 				RichTextBox NewtRTBox = new RichTextBox();
 				Point Panelpoint = new Point(7,ResultLocY);
-				DateTime myDate = DateTime.ParseExact(Hresult.msgDate, "yyyyMMddHHmmssfff", null);
+				//DateTime myDate = DateTime.ParseExact(Hresult.msgDate, "yyyyMMddHHmmssfff", null);
 				
 				int startIndex;
 				
@@ -43,7 +43,7 @@ namespace Lahistoria
 				NewLabel.Location = Labelpoint;
 				NewLabel.ForeColor = Color.Khaki;
 				NewLabel.Font = Labelfont;				 
-				NewLabel.Text = myDate.ToString() + "  -  " +Hresult.sender_name + " [" + Hresult.connection+ "]"; 
+				NewLabel.Text = Hresult.msgDate.ToString() + "  -  " +Hresult.sender_name + " [" + Hresult.connection+ "]"; 
 	    	    NewLabel.Name = "L" + Hresult.uniqueId;
 	    	    NewLabel.Click += new EventHandler(NewLabel_Click);
 	    	    NewLabel.MouseEnter += new EventHandler(NewLabel_MouseEnter);
@@ -60,7 +60,8 @@ namespace Lahistoria
 				NewtRTBox.Text = Hresult.shortMessage;
 	    	    NewtRTBox.Name = "R" + Hresult.uniqueId;
 	    	    NewtRTBox.Click+=delegate(object sender2, EventArgs e2){ShowConversationClick(sender2, e2, Hresult.Phrase,Hresult.LineInSession);};
-	    	    NewtRTBox.MouseEnter += new EventHandler(NewtBox_MouseEnter);
+	    	    //NewtRTBox.MouseEnter += new EventHandler(NewtBox_MouseEnter);
+	    	    NewtRTBox.MouseHover += new EventHandler(NewtBox_MouseHover);
 	    	    NewtRTBox.Parent = newPanel;
 	    	    
 	    	    startIndex = NewtRTBox.Text.IndexOf(Hresult.Phrase,Hresult.shortPosition,StringComparison.OrdinalIgnoreCase);
@@ -149,25 +150,35 @@ namespace Lahistoria
 			sr.Close();
 			ExpandConv = false;
 			HistoryPanel.Controls.Clear();
+			int entry =1;
+			string RTBheader ="";
+			string CurSender = "";
+			Font fontL = new Font("Arial", 8,FontStyle.Bold);
+			Font fontH = new Font("Times New Roman", 9,FontStyle.Bold);
+			Font fontS = new Font("Times New Roman", 11,FontStyle.Bold);
+			Color CurColor = Color.DarkCyan;
 		    foreach(Message_Entry msg in ConversationList)
 		    {
 			    RichTextBox RTBmsg = new RichTextBox();
 			    Point pointA = new Point(0,locy);
-			    Font fontL = new Font("Arial", 8,FontStyle.Bold);
-			    Font fontS = new Font("Times New Roman", 11,FontStyle.Bold);
 				RTBmsg.BorderStyle = BorderStyle.None;
 				RTBmsg.Size = new System.Drawing.Size(647, 1);
-				RTBmsg.BackColor = System.Drawing.Color.Beige;
+				//RTBmsg.BackColor = System.Drawing.Color.Beige;
 				RTBmsg.ReadOnly = true;	
 				RTBmsg.WordWrap = true;					
-				RTBmsg.Location = pointA;				
-				RTBmsg.Font = fontL;	 
+				//RTBmsg.Enabled = false;
+
+				RTBmsg.Location = pointA;
+				RTBmsg.Font = fontL;
+				RTBmsg.BackColor=CurColor;
 				//RTBmsg.Text = msg.Message; 
 		    	RTBmsg.Name = msg.Show + "RTBmsg" + msg.uniqueId;
 		    	//RTBmsg.HideSelection=true;
 		    	RTBmsg.Parent = HistoryPanel;
 		    	RTBmsg.MouseEnter += new EventHandler(RTBmsg_MouseEnter);
 		    	RTBmsg.DoubleClick+= new EventHandler(RTBmsg_DoubleClick);
+		    	//RTBmsg.MouseUp+= new EventHandler(RTBmsg_MouseUp);
+		    	//RTBmsg.AddContextMenu();
 		    	//RTBmsg.ContentsResized+= new EventHandler(RTBmsg_ContentsResized);
 		        RTBmsg.ContentsResized += (object sender, ContentsResizedEventArgs e) =>
 		        {
@@ -176,23 +187,46 @@ namespace Lahistoria
 		            richTextBox.Height = e.NewRectangle.Height;
 		            //RTBmsg.Width += RTBmsg.Margin.Horizontal + SystemInformation.HorizontalResizeBorderThickness;
 		        };
-		        RTBmsg.Text = msg.Message; 
 
-	    	    startIndex = msg.Message.IndexOf(phrase,StringComparison.OrdinalIgnoreCase);
-	    	    if(startIndex>=0)
-	            {	    	    	
-	    	    	RTBmsg.Select(startIndex, phrase.Length);
-	                RTBmsg.SelectionColor = Color.Salmon;
-	                RTBmsg.SelectionFont = fontS;
-			    } 
-		    	
+		        if(CurSender!=msg.sender_id)
+		        {
+		        	RTBheader = msg.sender_name + "      " + msg.msgDate.ToString() + System.Environment.NewLine + System.Environment.NewLine;
+					if(CurColor==Color.DarkSeaGreen)CurColor=Color.DarkCyan;
+					else if(CurColor==Color.DarkCyan)CurColor=Color.DarkSeaGreen;
+					RTBmsg.BackColor=CurColor;
+					startIndex = RTBheader.Length-2;
+		        }
+		        else 
+		        {
+		        	RTBheader = "";
+		        	startIndex = 0;
+		        }
+		        
+		        RTBmsg.Text = RTBheader + msg.Message ;
+		        
+				RTBmsg.Select(0, RTBheader.Length-2);
+		        RTBmsg.SelectionColor = Color.White;
+		        RTBmsg.SelectionFont = fontH;
+		        
+		        startIndex = RTBmsg.Text.IndexOf(phrase,startIndex,StringComparison.OrdinalIgnoreCase);
+		        while(startIndex>=0)
+		        {		    	      	    	
+		    	    RTBmsg.Select(startIndex, phrase.Length);
+		            RTBmsg.SelectionColor = Color.Salmon;
+		            RTBmsg.SelectionFont = fontS;
+				    startIndex = RTBmsg.Text.IndexOf(phrase,startIndex+1,StringComparison.OrdinalIgnoreCase);
+				    RTBmsg.DeselectAll();
+		        }		    	
 		    	locy = locy + RTBmsg.Height+1;
+		    	
+		    	entry++;
+		        CurSender = msg.sender_id;
 		    }
 		    foreach(Control ctl in HistoryPanel.Controls)
 		    {
 		    	if(ctl.Name.Substring(0,1)=="0")
 		    	{
-		    		ctl.BackColor=Color.Wheat;
+		    		//ctl.BackColor=Color.Wheat;
 		    	}
 		    	if(ctl.Name.Substring(0,1)=="2")ctl.Focus();
 		    }
