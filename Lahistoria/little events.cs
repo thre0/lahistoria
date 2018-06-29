@@ -1,4 +1,5 @@
 ﻿using System;
+//using System.Drawing;
 using System.Windows.Forms;
 namespace Lahistoria
 {
@@ -80,24 +81,27 @@ namespace Lahistoria
 		{
 			ShowAllButt.PerformClick();
 		}
-   /*     private void RTBmsg_MouseUp(object sender, MouseEventArgs e)
+   		 void RTBmsg_MouseUp(object sender, MouseEventArgs e)
         {
+   		 	RichTextBox tb = sender as RichTextBox;
             if (e.Button == System.Windows.Forms.MouseButtons.Right)
             {   //click event
                 //MessageBox.Show("you got it!");
                 ContextMenu contextMenu = new System.Windows.Forms.ContextMenu();
                 MenuItem menuItem = new MenuItem("Copy");
-                menuItem.Click += new EventHandler(CopyAction);
+                menuItem.Click += delegate(object sender2, EventArgs e2){CopyAction(sender2, e2, tb.SelectedText);};
                 contextMenu.MenuItems.Add(menuItem);
-                this.ContextMenu = contextMenu;
+                tb.ContextMenu = contextMenu;
             }
         }
-        void CopyAction(object sender, EventArgs e)
+   		 void CopyAction(object sender, EventArgs e, string  data)
         {
-            Graphics objGraphics;
-            Clipboard.SetData(DataFormats.Rtf, richTextBox1.SelectedRtf);
-            Clipboard.Clear();
-        }*/
+        	//RichTextBox tb = sender as RichTextBox;
+            //Graphics objGraphics;
+            Clipboard.SetText(data, TextDataFormat.UnicodeText);
+            //Clipboard.SetData(DataFormats.Rtf, data);
+           //Clipboard.Clear();
+        }
 	}
 
 }

@@ -177,7 +177,7 @@ namespace Lahistoria
 		    	RTBmsg.Parent = HistoryPanel;
 		    	RTBmsg.MouseEnter += new EventHandler(RTBmsg_MouseEnter);
 		    	RTBmsg.DoubleClick+= new EventHandler(RTBmsg_DoubleClick);
-		    	//RTBmsg.MouseUp+= new EventHandler(RTBmsg_MouseUp);
+		    	RTBmsg.MouseDown+= new MouseEventHandler(RTBmsg_MouseUp);
 		    	//RTBmsg.AddContextMenu();
 		    	//RTBmsg.ContentsResized+= new EventHandler(RTBmsg_ContentsResized);
 		        RTBmsg.ContentsResized += (object sender, ContentsResizedEventArgs e) =>
